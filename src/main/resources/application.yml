@@ -1,0 +1,47 @@
+server:
+    port: 8888
+    context-path: #/zhangly/
+
+logging:
+    level:
+        tk.mybatis: TRACE
+
+druid:
+    url: jdbc:mysql://localhost:3306/shop
+    username: root
+    password: root
+    initial-size: 1
+    min-idle: 1
+    max-active: 20
+    test-on-borrow: true
+
+spring:
+    http:
+        encoding:
+          charset: UTF-8
+          enable: true
+          force: true
+    mvc:
+        view:
+            prefix: /templates/
+            suffix: .ftl
+    freemarker:
+        cache: false
+        request-context-attribute: request
+
+
+mybatis:
+    type-aliases-package: cn.zhangly.shop.model
+    mapper-locations: classpath:mapper/*.xml
+
+mapper:
+    mappers:
+        - cn.zhangly.shop.util.BaseMapper
+    not-empty: false
+    identity: MYSQL
+
+pagehelper:
+    helperDialect: mysql
+    reasonable: true
+    supportMethodsArguments: true
+    params: count=countSql
