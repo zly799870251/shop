@@ -1,12 +1,13 @@
 package cn.zhangly.shop.model;
 
-import javax.persistence.Column;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
+import java.util.Collection;
 import java.util.Date;
 
 /**
  * Created by 青葉 on 2017/4/21.
  */
+@Table(name = "order")
 public class Order extends BaseEntity {
 
     @Column(name = "createTime")
@@ -18,8 +19,15 @@ public class Order extends BaseEntity {
     private String phoneNumber;
     private String consignee; // 收货人
 
-    @ManyToOne(targetEntity = User.class)
+    @JoinColumn(name = "userId",referencedColumnName = "id")
+    @ManyToOne
     private User user;
+
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "id")
+    private Collection<OrderCommodity> orderCommodities;
+
+//    @JoinTable(name = "order_commodity", joinColumns = {@JoinColumn(name = "orderId", referencedColumnName = "commodityId")})
+//    private Collection<Commodity> commodities;
 
     public Date getCreateTime() {
         return createTime;

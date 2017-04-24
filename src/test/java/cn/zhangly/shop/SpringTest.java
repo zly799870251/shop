@@ -1,6 +1,8 @@
 package cn.zhangly.shop;
 
+import cn.zhangly.shop.mapper.ClassificationMapper;
 import cn.zhangly.shop.mapper.UserMapper;
+import cn.zhangly.shop.model.Classification;
 import cn.zhangly.shop.model.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,7 +25,7 @@ public class SpringTest {
 
     @Test
     public void test(){
-        for (User user : userMapper.selectAll()) System.out.println(user);
+        for (User entity : userMapper.selectAll()) System.out.println(entity);
     }
 
 }

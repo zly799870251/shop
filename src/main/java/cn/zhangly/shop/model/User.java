@@ -1,10 +1,15 @@
 package cn.zhangly.shop.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import java.util.Collection;
 
 /**
  * Created by 青葉 on 2017/4/21.
  */
+@Table(name = "user")
 public class User extends BaseEntity {
 
     private String username;
@@ -17,6 +22,9 @@ public class User extends BaseEntity {
     private Integer state;
     @Column(name = "activCode")
     private String activCode;
+
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "id")
+    private Collection<Order> orders;
 
     @Override
     public String toString() {
