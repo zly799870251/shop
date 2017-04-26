@@ -7,7 +7,7 @@ import java.util.Date;
 /**
  * Created by 青葉 on 2017/4/21.
  */
-@Table(name = "order")
+@Table(name = "orders")
 public class Order extends BaseEntity {
 
     @Column(name = "createTime")
@@ -18,16 +18,21 @@ public class Order extends BaseEntity {
     @Column(name = "phoneNumber")
     private String phoneNumber;
     private String consignee; // 收货人
+    @Column(name = "userId")
+    private Long userId;
 
-    @JoinColumn(name = "userId",referencedColumnName = "id")
-    @ManyToOne
-    private User user;
-
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "id")
-    private Collection<OrderCommodity> orderCommodities;
-
-//    @JoinTable(name = "order_commodity", joinColumns = {@JoinColumn(name = "orderId", referencedColumnName = "commodityId")})
-//    private Collection<Commodity> commodities;
+    @Override
+    public String toString() {
+        return "Order{" +
+                "createTime=" + createTime +
+                ", price=" + price +
+                ", state='" + state + '\'' +
+                ", address='" + address + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", consignee='" + consignee + '\'' +
+                ", userId=" + userId +
+                '}';
+    }
 
     public Date getCreateTime() {
         return createTime;
@@ -77,11 +82,11 @@ public class Order extends BaseEntity {
         this.consignee = consignee;
     }
 
-    public User getUser() {
-        return user;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 }

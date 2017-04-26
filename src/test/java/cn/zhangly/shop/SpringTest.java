@@ -1,9 +1,7 @@
 package cn.zhangly.shop;
 
-import cn.zhangly.shop.mapper.ClassificationMapper;
-import cn.zhangly.shop.mapper.UserMapper;
-import cn.zhangly.shop.model.Classification;
-import cn.zhangly.shop.model.User;
+import cn.zhangly.shop.mapper.*;
+import cn.zhangly.shop.model.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -21,11 +19,11 @@ import javax.annotation.Resource;
 public class SpringTest {
 
     @Resource
-    private UserMapper userMapper;
+    private OrderCommodityMapper mapper;
 
     @Test
     public void test(){
-        for (User entity : userMapper.selectAll()) System.out.println(entity);
+        for (OrderCommodity entity : mapper.selectAll()) System.out.println(entity);
     }
 
 }

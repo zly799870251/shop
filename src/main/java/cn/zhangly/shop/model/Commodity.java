@@ -1,28 +1,37 @@
 package cn.zhangly.shop.model;
 
-import javax.persistence.*;
-import java.util.Collection;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 /**
  * Created by 青葉 on 2017/4/21.
  */
+@Entity
 @Table(name = "commodity")
 public class Commodity extends BaseEntity {
 
     private String name;
     @Column(name = "mallPrice")
-    private Double mallPrice;
-    @Column(name = "marketPrice")
-    private Double marketPrice;
-    private String describe;
+    private double mallPrice;
+    @Column(name = "markPrice")
+    private double markPrice;
+    private String description;
     private String image;
+    @Column(name = "classId")
+    private Long classId;
 
-    @JoinColumn(name = "classId", referencedColumnName = "id")//设置对应数据表的列名和引用的数据表的列名
-    @ManyToOne(targetEntity = Classification.class)
-    private Classification classification;
-
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "id")
-    private Collection<OrderCommodity> orderCommodities;
+    @Override
+    public String toString() {
+        return "Commodity{" +
+                "name='" + name + '\'' +
+                ", mallPrice=" + mallPrice +
+                ", markPrice=" + markPrice +
+                ", description='" + description + '\'' +
+                ", image='" + image + '\'' +
+                ", classId=" + classId +
+                '}';
+    }
 
     public String getName() {
         return name;
@@ -32,28 +41,28 @@ public class Commodity extends BaseEntity {
         this.name = name;
     }
 
-    public Double getMallPrice() {
+    public double getMallPrice() {
         return mallPrice;
     }
 
-    public void setMallPrice(Double mallPrice) {
+    public void setMallPrice(double mallPrice) {
         this.mallPrice = mallPrice;
     }
 
-    public Double getMarketPrice() {
-        return marketPrice;
+    public double getMarkPrice() {
+        return markPrice;
     }
 
-    public void setMarketPrice(Double marketPrice) {
-        this.marketPrice = marketPrice;
+    public void setMarkPrice(double markPrice) {
+        this.markPrice = markPrice;
     }
 
-    public String getDescribe() {
-        return describe;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescribe(String describe) {
-        this.describe = describe;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getImage() {
@@ -64,19 +73,11 @@ public class Commodity extends BaseEntity {
         this.image = image;
     }
 
-    public Classification getClassification() {
-        return classification;
+    public Long getClassId() {
+        return classId;
     }
 
-    public void setClassification(Classification classification) {
-        this.classification = classification;
-    }
-
-    public Collection<OrderCommodity> getOrderCommodities() {
-        return orderCommodities;
-    }
-
-    public void setOrderCommodities(Collection<OrderCommodity> orderCommodities) {
-        this.orderCommodities = orderCommodities;
+    public void setClassId(Long classId) {
+        this.classId = classId;
     }
 }

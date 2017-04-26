@@ -10,24 +10,14 @@ import java.util.Collection;
 public class Classification extends BaseEntity {
 
     private String name;
-
-    @JoinColumn(name = "parentId", referencedColumnName = "id")//设置对应数据表的列名和引用的数据表的列名
-    @ManyToOne//设置在“一方”pojo的外键字段上
-    private Classification parent;
-
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "id")
-    private Collection<Classification> children;
-
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "id")
-    private Collection<Commodity> commodities;
+    @Column(name = "parentId")
+    private Long parentId;
 
     @Override
     public String toString() {
         return "Classification{" +
                 "name='" + name + '\'' +
-                ", parent=" + parent +
-                ", children=" + children +
-                ", commodities=" + commodities +
+                ", parentId=" + parentId +
                 '}';
     }
 
@@ -39,27 +29,11 @@ public class Classification extends BaseEntity {
         this.name = name;
     }
 
-    public Classification getParent() {
-        return parent;
+    public Long getParentId() {
+        return parentId;
     }
 
-    public void setParent(Classification parent) {
-        this.parent = parent;
-    }
-
-    public Collection<Classification> getChildren() {
-        return children;
-    }
-
-    public void setChildren(Collection<Classification> children) {
-        this.children = children;
-    }
-
-    public Collection<Commodity> getCommodities() {
-        return commodities;
-    }
-
-    public void setCommodities(Collection<Commodity> commodities) {
-        this.commodities = commodities;
+    public void setParentId(Long parentId) {
+        this.parentId = parentId;
     }
 }

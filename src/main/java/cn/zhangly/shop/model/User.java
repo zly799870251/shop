@@ -1,9 +1,6 @@
 package cn.zhangly.shop.model;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Collection;
 
 /**
@@ -15,6 +12,7 @@ public class User extends BaseEntity {
     private String username;
     private String password;
     private String name;
+    private String sex;
     private String email;
     private String address;
     @Column(name = "phoneNumber")
@@ -23,15 +21,13 @@ public class User extends BaseEntity {
     @Column(name = "activCode")
     private String activCode;
 
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "id")
-    private Collection<Order> orders;
-
     @Override
     public String toString() {
         return "User{" +
-                ", username='" + username + '\'' +
+                "username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", name='" + name + '\'' +
+                ", sex='" + sex + '\'' +
                 ", email='" + email + '\'' +
                 ", address='" + address + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
@@ -62,6 +58,14 @@ public class User extends BaseEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
     }
 
     public String getEmail() {

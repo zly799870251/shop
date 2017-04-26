@@ -1,8 +1,6 @@
 package cn.zhangly.shop.model;
 
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Collection;
 
 /**
@@ -13,22 +11,18 @@ public class OrderCommodity extends BaseEntity {
 
     private int number;
     private double price;
-
-    @JoinColumn(name = "orderId",referencedColumnName = "id")
-    @ManyToOne
-    private Order order;
-
-    @JoinColumn(name = "commodityId",referencedColumnName = "id")
-    @ManyToOne
-    private Commodity commodity;
+    @Column(name = "orderId")
+    private Long orderId;
+    @Column(name = "commodityId")
+    private Long commodityId;
 
     @Override
     public String toString() {
         return "OrderCommodity{" +
                 "number=" + number +
                 ", price=" + price +
-                ", order=" + order +
-                ", commodity=" + commodity +
+                ", orderId=" + orderId +
+                ", commodityId=" + commodityId +
                 '}';
     }
 
@@ -48,19 +42,19 @@ public class OrderCommodity extends BaseEntity {
         this.price = price;
     }
 
-    public Order getOrder() {
-        return order;
+    public Long getOrderId() {
+        return orderId;
     }
 
-    public void setOrder(Order order) {
-        this.order = order;
+    public void setOrderId(Long orderId) {
+        this.orderId = orderId;
     }
 
-    public Commodity getCommodity() {
-        return commodity;
+    public Long getCommodityId() {
+        return commodityId;
     }
 
-    public void setCommodity(Commodity commodity) {
-        this.commodity = commodity;
+    public void setCommodityId(Long commodityId) {
+        this.commodityId = commodityId;
     }
 }
