@@ -1,7 +1,8 @@
 ﻿<html>
 <head>
     <title>网上商城</title>
-<#include "public/classform.ftl">
+    <#include "public/classform.ftl">
+    <link href="${request.contextPath}/templates/css/product.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <#include "public/header.ftl">

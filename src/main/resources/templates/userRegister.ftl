@@ -1,12 +1,105 @@
 <html>
 <head>
     <title>会员注册</title>
-    <#include "public/classform.ftl">
+<#include "public/classform.ftl">
+    <link href="${request.contextPath}/templates/css/register.css" rel="stylesheet" type="text/css"/>
     <script>
         function change() {
-            var img1 = document.getElementById("captchaImage");
+            var img1 = document.getElementById("checkImage");
             img1.src = "${request.contextPath}/getVerificationCode.action" + new Date().getTime();
         }
+
+        var app = angular.module("regform", []);
+
+        // 验证用户名是否已存在
+        app.directive('usernameValidate', function($http) {
+            return {
+                require : 'ngModel',
+                link : function($scope, elm, attrs, ctrl) {
+                    elm.bind('blur', function() {
+                        $http({method: 'GET', url: '${request.contextPath}/user/usernameValidate.action?username=' + $scope.datausername}).
+                        success(function(data, status, headers, config) {
+                            // 当值为空时，通过验证，因为有required
+                            if (ctrl.$isEmpty($scope.datausername)) {
+                                return true;
+                            }
+                            if(parseInt(data)==0){
+                                ctrl.$setValidity('usernameValidate',true);
+                            }else{
+                                ctrl.$setValidity('usernameValidate',false);
+                            }
+                        });
+                    });
+                }
+            };
+        });
+        // 验证用户名位数
+        app.directive('usernameSize', function () {
+            return {
+                require: 'ngModel',
+                link: function (scope, ele, attrs, ctrl) {
+                    ctrl.$validators.usernameSize = function (modelValue) {
+                        // 当值为空时，通过验证，因为有required
+                        if (ctrl.$isEmpty(modelValue)) {
+                            return true;
+                        }
+                        return modelValue.length >= 8 ? true : false;
+                    }
+                }
+            }
+        })
+        // 验证密码位数
+        app.directive('pwdSize', function () {
+            return {
+                require: 'ngModel',
+                link: function (scope, ele, attrs, ctrl) {
+                    ctrl.$validators.pwdSize = function (modelValue) {
+                        // 当值为空时，通过验证，因为有required
+                        if (ctrl.$isEmpty(modelValue)) {
+                            return true;
+                        }
+                        return modelValue.length >= 6 ? true : false;
+                    }
+                }
+            }
+        })
+        // 验证两次输入的密码是否相同的自定义验证
+        app.directive('pwdRepeat', function () {
+            return {
+                require: 'ngModel',
+                link: function (scope, ele, attrs, ctrl) {
+                    ctrl.$validators.pwdRepeat = function (modelValue) {
+                        // 当值为空时，通过验证，因为有required
+                        if (ctrl.$isEmpty(modelValue)) {
+                            return true;
+                        }
+                        return modelValue === scope.datapassword ? true : false;
+                    }
+                }
+            }
+        })
+        // 验证码的校验
+        app.directive('checkcodeValidate', function($http) {
+            return {
+                require : 'ngModel',
+                link : function($scope, elm, attrs, ctrl) {
+                    elm.bind('blur', function() {
+                        $http({method: 'GET', url: '${request.contextPath}/user/checkcodeValidate.action?checkcode=' + $scope.datacheckcode}).
+                        success(function(data, status, headers, config) {
+                            // 当值为空时，通过验证，因为有required
+                            if (ctrl.$isEmpty($scope.datacheckcode)) {
+                                return true;
+                            }
+                            if(parseInt(data)==0){
+                                ctrl.$setValidity('checkcodeValidate',true);
+                            }else{
+                                ctrl.$setValidity('checkcodeValidate',false);
+                            }
+                        });
+                    });
+                }
+            };
+        });
     </script>
 </head>
 <body>
@@ -16,83 +109,107 @@
     <div class="span24">
         <div class="wrap">
             <div class="main clearfix">
+
                 <div class="title">
                     <strong>会员注册</strong>USER REGISTER
                 </div>
-                <form id="registerForm" method="post" novalidate="novalidate"
-                      action="${request.contextPath}/user/register.action">
+
+                <form id="registerForm" name="regform" method="post" novalidate="novalidate"
+                      action="${request.contextPath}/user/register.action"
+                      ng-app="regform">
                     <table>
                         <tbody>
                         <tr>
-                            <th>
-                                <span class="requiredField">*</span>用户名:
-                            </th>
+                            <th><span class="requiredField">*</span>用户名:</th>
                             <td>
-                                <input type="text" id="username" name="username" class="text" maxlength="20">
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                <span class="requiredField">*</span>密&nbsp;&nbsp;码:
-                            </th>
-                            <td>
-                                <input type="password" id="password" name="password" class="text" maxlength="20"
-                                       autocomplete="off">
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                <span class="requiredField">*</span>确认密码:
-                            </th>
-                            <td>
-                                <input type="password" name="rePassword" class="text" maxlength="20" autocomplete="off">
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                <span class="requiredField">*</span>E-mail:
-                            </th>
-                            <td>
-                                <input type="text" id="email" name="email" class="text" maxlength="200">
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                姓名:
-                            </th>
-                            <td>
-                                <input type="text" name="name" class="text" maxlength="200">
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                性别:
-                            </th>
-                            <td>
-                                <span class="fieldSet">
-                                        <label>
-                                            <input type="radio" name="sex" value="男">男
-                                        </label>
-                                        <label>
-                                            <input type="radio" name="sex" value="女">女
-                                        </label>
+                                <input type="text" id="username" name="username" ng-model="datausername" class="text"
+                                       ng-minlength="8" ng-maxlength="20" required username-validate>
+                                <span style="color: red;">
+                                    <span ng-show="regform.username.$error.required && regform.username.$touched">请输入用户名</span>
+                                    <span ng-show="regform.username.$error.minlength && regform.username.$touched">用户名长度不能小于8位</span>
+                                    <span ng-show="regform.username.$error.maxlength && regform.username.$touched">用户名长度不能大于20位</span>
+                                    <span ng-show="regform.username.$error.usernameValidate && regform.username.$touched">该用户名已存在</span>
                                 </span>
                             </td>
                         </tr>
                         <tr>
-                            <th>地址:</th>
-                            <td><input type="text" name="address" class="text" maxlength="200"></td>
+                            <th><span class="requiredField">*</span>密&nbsp;&nbsp;码:</th>
+                            <td>
+                                <input type="password" id="password" name="password" ng-model="datapassword"
+                                       class="text" ng-minlength="6" ng-maxlength="16" autocomplete="off" required>
+                                <span style="color: red;">
+                                    <span ng-show="regform.password.$error.required && regform.password.$touched">请输入密码</span>
+                                    <span ng-show="regform.password.$error.minlength && regform.password.$touched">密码位数不能少于6位</span>
+                                    <span ng-show="regform.password.$error.maxlength && regform.password.$touched">密码位数不能大于16位</span>
+                                </span>
+                            </td>
                         </tr>
                         <tr>
-                            <th><span class="requiredField">*</span>验证码:</th>
+                            <th><span class="requiredField">*</span>确认密码:</th>
+                            <td>
+                                <input type="password" name="repassword" ng-model="datarepassword" class="text"
+                                       maxlength="20" autocomplete="off" required pwd-repeat>
+                                <span style="color: red;">
+                                    <span ng-show="regform.repassword.$error.required && regform.repassword.$touched">请再次输入密码</span>
+                                    <span ng-show="regform.repassword.$error.pwdRepeat && regform.repassword.$touched">两次输入的密码不一致，请重新输入！</span>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><span class="requiredField">*</span>E-mail:</th>
+                            <td>
+                                <input type="email" id="email" name="email" ng-model="dataemail" class="text"
+                                       maxlength="200" required>
+                                <span style="color: red;">
+                                    <span ng-show="regform.email.$error.required && regform.email.$touched">请输入邮箱</span>
+                                    <span ng-show="regform.email.$error.email && regform.email.$touched">邮箱输入非法</span>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>姓名:</th>
+                            <td><input type="text" name="name" ng-model="dataname" class="text" maxlength="200"></td>
+                        </tr>
+                        <tr>
+                            <th>性别:</th>
                             <td><span class="fieldSet">
-                                <input type="text" id="captcha" name="captcha" class="text captcha" maxlength="4" autocomplete="off">
-                                <img id="captchaImage" class="captchaImage" src="${request.contextPath}/getVerificationCode.action" onclick="change()" title="点击更换验证码">
+                                <label><input type="radio" name="sex" ng-model="datasex" value="男" checked>男</label>
+                                <label><input type="radio" name="sex" ng-model="datasex" value="女">女</label>
                             </span></td>
                         </tr>
                         <tr>
+                            <th>地址:</th>
+                            <td><input type="text" name="address" ng-model="dataaddress" class="text" maxlength="200">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><span class="requiredField">*</span>验证码:</th>
+                            <td>
+                                <span class="fieldSet">
+                                    <input type="text" id="checkcode" name="checkcode" ng-model="datacheckcode"
+                                           class="text captcha" maxlength="4" autocomplete="off" required checkcode-validate>
+                                    <img id="checkImage" class="checkImage"
+                                         src="${request.contextPath}/getVerificationCode.action" onclick="change()"
+                                         title="点击更换验证码">
+                                    <span style="color: red;">
+                                        <span ng-show="regform.checkcode.$error.required && regform.checkcode.$touched">请输入验证码</span>
+                                        <span ng-show="regform.checkcode.$error.checkcodeValidate && regform.checkcode.$touched">验证码错误</span>
+                                    </span>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
                             <th>&nbsp;</th>
-                            <td><input type="submit" class="submit" value="同意以下协议并注册"></td>
+                            <td>
+                                <input type="submit" class="submit" value="同意以下协议并注册"
+                                       ng-disabled="regform.username.$error.required || regform.username.$error.minlength ||
+                                       regform.username.$error.maxlength || regform.username.$error.usernameValidate ||
+                                       regform.password.$error.required || regform.password.$error.minlength ||
+                                       regform.password.$error.maxlength || regform.repassword.$error.required ||
+                                       regform.repassword.$error.pwdRepeat || regform.email.$error.required ||
+                                       regform.email.$error.email || regform.checkcode.$error.required ||
+                                       regform.checkcode.$error.checkcodeValidate"/>
+                            </td>
                         </tr>
                         <tr>
                             <th>&nbsp;</th>
@@ -164,7 +281,7 @@
                             <dt>已经拥有账号了？</dt>
                             <dd>
                                 立即登录即可体验在线购物！
-                                <a href="userLogin.ftl">立即登录</a>
+                                <a href="${request.contextPath}/user/loginUI.action">立即登录</a>
                             </dd>
                         </dl>
                     </div>
@@ -175,11 +292,5 @@
 </div>
 
 <#include "public/footer.ftl">
-
-<div id="_my97DP" style="position: absolute; top: -1970px; left: -1970px;">
-    <iframe style="width: 190px; height: 191px;"
-            src="${request.contextPath}/templates/会员注册 - Powered By Mango Team_files/My97DatePicker.htm" frameborder="0"
-            border="0" scrolling="no"></iframe>
-</div>
 </body>
 </html>

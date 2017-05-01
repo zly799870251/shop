@@ -2,6 +2,7 @@
 <head>
     <title>订单页面</title>
     <#include "public/classform.ftl">
+    <link href="${request.contextPath}/templates/css/cart.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <#include "public/header.ftl">

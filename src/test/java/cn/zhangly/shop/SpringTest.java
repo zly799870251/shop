@@ -2,6 +2,7 @@ package cn.zhangly.shop;
 
 import cn.zhangly.shop.mapper.*;
 import cn.zhangly.shop.model.*;
+import cn.zhangly.shop.service.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,11 +20,11 @@ import javax.annotation.Resource;
 public class SpringTest {
 
     @Resource
-    private OrderCommodityMapper mapper;
+    private UserService userService;
 
     @Test
     public void test(){
-        for (OrderCommodity entity : mapper.selectAll()) System.out.println(entity);
+        System.out.println(userService.usernameValidate("wangwu"));
     }
 
 }
