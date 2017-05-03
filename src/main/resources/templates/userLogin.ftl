@@ -1,7 +1,7 @@
 <html>
 <head>
-    <title>会员登录</title>
-    <#include "public/classform.ftl">
+    <title>会员注册</title>
+<#include "public/classform.ftl">
     <link href="${request.contextPath}/templates/css/login.css" rel="stylesheet" type="text/css"/>
     <script>
         function change() {
@@ -75,7 +75,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <th>验证码:</th>
+                            <th><span class="requiredField">*</span>验证码:</th>
                             <td>
                                 <span class="fieldSet">
                                     <input type="text" id="checkcode" name="checkcode" ng-model="datacheckcode"
@@ -84,8 +84,8 @@
                                          src="${request.contextPath}/getVerificationCode.action" onclick="change()"
                                          title="点击更换验证码">
                                     <span style="color: red;">
-                                        <span ng-show="regform.checkcode.$error.required && regform.checkcode.$touched">请输入验证码</span>
-                                        <span ng-show="regform.checkcode.$error.checkcodeValidate && regform.checkcode.$touched">验证码错误</span>
+                                        <span ng-show="loginform.checkcode.$error.required && loginform.checkcode.$touched">请输入验证码</span>
+                                        <span ng-show="loginform.checkcode.$error.checkcodeValidate && loginform.checkcode.$touched">验证码错误</span>
                                     </span>
                                 </span>
                             </td>
@@ -105,11 +105,10 @@
                             </td>
                         </tr>
                         <tr>
-                            <th>&nbsp;
-
-                            </th>
+                            <th>&nbsp;</th>
                             <td>
-                                <input type="submit" class="submit" value="登 录">
+                                <input type="submit" class="submit" value="登 录"
+                                       ng-disabled="loginform.checkcode.$error.required || loginform.checkcode.$error.checkcodeValidate">
                             </td>
                         </tr>
                         <tr class="register">

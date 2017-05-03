@@ -29,14 +29,17 @@ public class UserAction extends BaseAction {
 
     @RequestMapping("/login")
     public String login(String username, String password, HttpServletRequest request) {
+        System.out.println("username=" + username);
+        System.out.println("password=" + password);
         User user = userService.login(username, password);
         System.out.println(user);
-        if (user != null) {
-            request.getSession().setAttribute("user", user);
-            return "index";
-        } else {
-            return "userLogin";
-        }
+//        if (user != null) {
+//            request.getSession().setAttribute("user", user);
+//            return "index";
+//        } else {
+//            return "userLogin";
+//        }
+        return "userLogin";
     }
 
     @RequestMapping("/registerUI")

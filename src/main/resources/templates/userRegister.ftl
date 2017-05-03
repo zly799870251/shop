@@ -1,7 +1,7 @@
 <html>
 <head>
     <title>会员注册</title>
-<#include "public/classform.ftl">
+    <#include "public/classform.ftl">
     <link href="${request.contextPath}/templates/css/register.css" rel="stylesheet" type="text/css"/>
     <script>
         function change() {
