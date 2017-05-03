@@ -1,29 +1,32 @@
 <html>
 <head>
     <title>会员登录</title>
-<#include "public/classform.ftl">
+    <#include "public/classform.ftl">
     <link href="${request.contextPath}/templates/css/login.css" rel="stylesheet" type="text/css"/>
     <script>
-        var app = angular.module("loginform", []);
         function change() {
             var img1 = document.getElementById("checkImage");
             img1.src = "${request.contextPath}/getVerificationCode.action" + new Date().getTime();
         }
+
+        var app = angular.module("loginform", []);
+
         // 验证码的校验
-        app.directive('logincheckcodeValidate', function ($http) {
+        app.directive('checkcodeValidate', function($http) {
             return {
-                require: 'ngModel',
-                link: function ($scope, elm, attrs, ctrl) {
-                    elm.bind('blur', function () {
-                        $http({
-                            method: 'GET',
-                            url: '${request.contextPath}/user/checkcodeValidate.action?checkcode=' + $scope.datacheckcode
-                        }).success(function (data, status, headers, config) {
-                            alert(data);
-                            if (parseInt(data) == 0) {
-                                ctrl.$setValidity('logincheckcodeValidate', true);
-                            } else {
-                                ctrl.$setValidity('logincheckcodeValidate', false);
+                require : 'ngModel',
+                link : function($scope, elm, attrs, ctrl) {
+                    elm.bind('blur', function() {
+                        $http({method: 'GET', url: '${request.contextPath}/user/checkcodeValidate.action?checkcode=' + $scope.datacheckcode}).
+                        success(function(data, status, headers, config) {
+                            // 当值为空时，通过验证，因为有required
+                            if (ctrl.$isEmpty($scope.datacheckcode)) {
+                                return true;
+                            }
+                            if(parseInt(data)==0){
+                                ctrl.$setValidity('checkcodeValidate',true);
+                            }else{
+                                ctrl.$setValidity('checkcodeValidate',false);
                             }
                         });
                     });
@@ -48,7 +51,9 @@
                 <div class="title">
                     <strong>会员登录</strong>USER LOGIN
                 </div>
-                <form id="loginForm" method="post" novalidate="novalidate" action="${request.contextPath}/user/login.action" ng-app="loginform">
+                <form id="loginForm" name="loginform" method="post" novalidate="novalidate"
+                      action="${request.contextPath}/user/login.action"
+                      ng-app="loginform">
                     <table>
                         <tbody>
                         <tr>
@@ -74,13 +79,13 @@
                             <td>
                                 <span class="fieldSet">
                                     <input type="text" id="checkcode" name="checkcode" ng-model="datacheckcode"
-                                           class="text captcha" maxlength="4" autocomplete="off" required logincheckcode-validate>
+                                           class="text captcha" maxlength="4" autocomplete="off" required checkcode-validate>
                                     <img id="checkImage" class="checkImage"
                                          src="${request.contextPath}/getVerificationCode.action" onclick="change()"
                                          title="点击更换验证码">
                                     <span style="color: red;">
-                                        <span ng-show="loginform.checkcode.$error.required && loginform.checkcode.$touched">请输入验证码</span>
-                                        <span ng-show="loginform.checkcode.$error.logincheckcodeValidate && loginform.checkcode.$touched">验证码错误</span>
+                                        <span ng-show="regform.checkcode.$error.required && regform.checkcode.$touched">请输入验证码</span>
+                                        <span ng-show="regform.checkcode.$error.checkcodeValidate && regform.checkcode.$touched">验证码错误</span>
                                     </span>
                                 </span>
                             </td>
