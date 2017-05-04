@@ -25,6 +25,8 @@ CREATE TABLE `commodity`( /* 商品表 */
 `markPrice` DOUBLE,/* 市场价格 */
 `description` VARCHAR(5000),
 `image` VARCHAR(255),
+`seecount` int,/* 查看数量 */
+`buycount` int,/* 购买数量 */
 `classId` BIGINT,
 CONSTRAINT `classId_fk` FOREIGN KEY (`classId`) REFERENCES `classification` (`id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -77,5 +79,5 @@ INSERT INTO `user`(`username`,`password`,`name`,`email`,`address`,`phoneNumber`,
 ('zhangsan','1234','张三','123456@qq.com','江西南昌','13833333333','1','cs35sf64sfd63'),
 ('lisi','1234','李四','654321@qq.com','江西新余','15589796452','0','gf8sd89fs0f9e');
 
-INSERT INTO `commodity`(`name`,`mallPrice`,`markPrice`,`description`,`image`,`classId`) VALUES
-('白菜',299.0,500.0,'有机蔬菜','path',1);
+INSERT INTO `commodity`(`name`,`mallPrice`,`markPrice`,`description`,`seecount`,`buycount`,`image`,`classId`) VALUES
+('白菜',299.0,500.0,'有机蔬菜',0,0,'path',1);

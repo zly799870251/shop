@@ -18,6 +18,8 @@ public class Commodity extends BaseEntity {
     private double markPrice;
     private String description;
     private String image;
+    private Integer seecount; /* 查看数 */
+    private Integer buycount; /* 购买数 */
     @Column(name = "classId")
     private Long classId;
 
@@ -29,6 +31,8 @@ public class Commodity extends BaseEntity {
                 ", markPrice=" + markPrice +
                 ", description='" + description + '\'' +
                 ", image='" + image + '\'' +
+                ", seecount=" + seecount +
+                ", buycount=" + buycount +
                 ", classId=" + classId +
                 '}';
     }
@@ -67,6 +71,22 @@ public class Commodity extends BaseEntity {
 
     public String getImage() {
         return image;
+    }
+
+    public Integer getSeecount() {
+        return seecount;
+    }
+
+    public void setSeecount(Integer seecount) {
+        this.seecount = seecount;
+    }
+
+    public Integer getBuycount() {
+        return buycount;
+    }
+
+    public void setBuycount(Integer buycount) {
+        this.buycount = buycount;
     }
 
     public void setImage(String image) {

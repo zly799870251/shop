@@ -31,7 +31,8 @@ public class UserAction extends BaseAction {
         System.out.println(user);
         if (user != null) {
             request.getSession().setAttribute("user", user);
-            return "success";
+            request.setAttribute("message","登录成功！");
+            return "message";
         } else {
             return "userLogin";
         }
@@ -40,7 +41,8 @@ public class UserAction extends BaseAction {
     @RequestMapping("/loginOut")
     public String loginOut(HttpServletRequest request){
         request.getSession().removeAttribute("user");
-        return "success";
+        request.setAttribute("message","登出成功！");
+        return "message";
     }
 
     @RequestMapping("/registerUI")
@@ -49,11 +51,12 @@ public class UserAction extends BaseAction {
     }
 
     @RequestMapping("/register")
-    public String register(User user, String checkcode) {
+    public String register(User user, String checkcode,HttpServletRequest request) {
         user.setState(0);
         user.setActivCode(UUID.randomUUID().toString());
         userService.save(user);
-        return "success";
+        request.setAttribute("message","注册成功！");
+        return "message";
     }
 
     @RequestMapping("/usernameValidate")

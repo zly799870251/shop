@@ -2,6 +2,7 @@ package cn.zhangly.shop;
 
 import cn.zhangly.shop.mapper.*;
 import cn.zhangly.shop.model.*;
+import cn.zhangly.shop.service.ClassificationService;
 import cn.zhangly.shop.service.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,11 +21,11 @@ import javax.annotation.Resource;
 public class SpringTest {
 
     @Resource
-    private UserService userService;
+    private ClassificationService userService;
 
     @Test
     public void test(){
-        System.out.println(userService.usernameValidate("wangwu"));
+        for (Classification classification : userService.findTop()) System.out.println(classification);
     }
 
 }

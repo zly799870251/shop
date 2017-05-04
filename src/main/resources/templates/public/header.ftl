@@ -31,16 +31,15 @@
                 </li>
             </#if>
                 <li>
-                    <a>会员中心</a>
+                    <a href="#">会员中心</a>
                     |
                 </li>
                 <li>
-                    <a>购物指南</a>
+                    <a href="#">购物指南</a>
                     |
                 </li>
                 <li>
-                    <a>关于我们</a>
-
+                    <a href="#">关于我们</a>
                 </li>
             </ul>
         </div>
@@ -55,34 +54,15 @@
     <div class="span24">
         <ul class="mainNav">
             <li>
-                <a href="index.ftl">首页</a>
+                <a href="${request.contextPath}/home/index.action">首页</a>
                 |
             </li>
-            <li>
-                <a href="vegetableClass.ftl">定制套餐</a>
-                |
-            </li>
-            <li>
-                <a>安全频道</a>
-                |
-            </li>
-            <li>
-                <a>商城卡</a>
-                |
-            </li>
-            <li>
-                <a>蔬菜基地</a>
-                |
-            </li>
-            <li>
-                <a>节气养生</a>
-                |
-            </li>
-            <li>
-                <a>便民服务</a>
-                |
-            </li>
-
+            <#list Application["topClassificationList"] as classification>
+                <li>
+                    <a href="#">${classification.name}</a>
+                    |
+                </li>
+            </#list>
         </ul>
     </div>
 
