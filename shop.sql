@@ -11,13 +11,13 @@ CREATE TABLE `user`( /* 用户表 */
 `phoneNumber` VARCHAR(255),
 `state` INT, /* 0未激活  1已经激活 */
 `activCode` VARCHAR(255)
-);
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
 CREATE TABLE `classification`( /* 分类表 */
 `id` BIGINT PRIMARY KEY AUTO_INCREMENT,
 `name` VARCHAR(255),
 `parentId` BIGINT,
 CONSTRAINT `parentId_fk` FOREIGN KEY (`parentId`) REFERENCES `classification` (`id`)
-);
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
 CREATE TABLE `commodity`( /* 商品表 */
 `id` BIGINT PRIMARY KEY AUTO_INCREMENT,
 `name` VARCHAR(255),
@@ -27,7 +27,7 @@ CREATE TABLE `commodity`( /* 商品表 */
 `image` VARCHAR(255),
 `classId` BIGINT,
 CONSTRAINT `classId_fk` FOREIGN KEY (`classId`) REFERENCES `classification` (`id`)
-);
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
 CREATE TABLE `orders`( /* 订单表 */
 `id` BIGINT PRIMARY KEY AUTO_INCREMENT,
 `createTime` DATE,
@@ -38,7 +38,7 @@ CREATE TABLE `orders`( /* 订单表 */
 `consignee` VARCHAR(255), /* 收货人 */
 `userId` BIGINT,
 CONSTRAINT `userId_fk` FOREIGN KEY (`userId`) REFERENCES `user` (`id`)
-);
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
 CREATE TABLE `order_commodity`( /* 订单项表 */
 `id` BIGINT PRIMARY KEY AUTO_INCREMENT,
 `commodityId` BIGINT,
@@ -47,12 +47,12 @@ CREATE TABLE `order_commodity`( /* 订单项表 */
 `price` DOUBLE,
 CONSTRAINT `commodityId_fk` FOREIGN KEY (`commodityId`) REFERENCES `commodity` (`id`),
 CONSTRAINT `orderId_fk` FOREIGN KEY (`orderId`) REFERENCES `orders` (`id`)
-);
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
 CREATE TABLE `adminuser`(
 `id` BIGINT PRIMARY KEY AUTO_INCREMENT,
 `username` VARCHAR(255),
 `password` VARCHAR(255)
-);
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `adminuser`(`username`,`password`) VALUES('admin','admin');
 
@@ -77,5 +77,5 @@ INSERT INTO `user`(`username`,`password`,`name`,`email`,`address`,`phoneNumber`,
 ('zhangsan','1234','张三','123456@qq.com','江西南昌','13833333333','1','cs35sf64sfd63'),
 ('lisi','1234','李四','654321@qq.com','江西新余','15589796452','0','gf8sd89fs0f9e');
 
-INSERT INTO `commodity`(`name`,`mallPrice`,`marketPrice`,`describe`,`image`,`classId`) VALUES
+INSERT INTO `commodity`(`name`,`mallPrice`,`markPrice`,`description`,`image`,`classId`) VALUES
 ('白菜',299.0,500.0,'有机蔬菜','path',1);

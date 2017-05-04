@@ -8,22 +8,28 @@
     </div>
     <div class="span9">
         <div class="headerAd">
-            <img src="${request.contextPath}/templates/image/header.jpg" width="320" height="50" alt="正品保障" title="正品保障"/>
+            <img src="${request.contextPath}/templates/image/header.jpg" width="320" height="50" alt="正品保障"
+                 title="正品保障"/>
         </div>
     </div>
     <div class="span10 last">
         <div class="topNav clearfix">
             <ul>
+            <#if Session.user?exists>
+                <li id="headerUsername">
+                    欢迎，尊敬的会员 ${Session.user.name}
+                </li>
+                <li id="headerLogout">
+                    <a href="${request.contextPath}/user/loginOut.action?id=${Session.user.id}">[退出]</a>|
+                </li>
+            <#else>
                 <li id="headerLogin" class="headerLogin" style="display: list-item;">
                     <a href="${request.contextPath}/user/loginUI.action">登录</a>|
                 </li>
                 <li id="headerRegister" class="headerRegister" style="display: list-item;">
                     <a href="${request.contextPath}/user/registerUI.action">注册</a>|
                 </li>
-                <li id="headerUsername" class="headerUsername"></li>
-                <li id="headerLogout" class="headerLogout">
-                    <a>[退出]</a>|
-                </li>
+            </#if>
                 <li>
                     <a>会员中心</a>
                     |

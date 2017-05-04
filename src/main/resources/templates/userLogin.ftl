@@ -2,6 +2,9 @@
 <head>
     <title>会员注册</title>
 <#include "public/classform.ftl">
+    <#if Session.user?exists>
+        <meta http-equiv="refresh" content="3;url=${request.contextPath}/home/index.action" />
+    </#if>
     <link href="${request.contextPath}/templates/css/login.css" rel="stylesheet" type="text/css"/>
     <script>
         function change() {

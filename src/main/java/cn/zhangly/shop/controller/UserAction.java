@@ -6,12 +6,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import tk.mybatis.mapper.util.StringUtil;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.io.IOException;
 import java.util.UUID;
 
 /**
@@ -33,13 +29,18 @@ public class UserAction extends BaseAction {
         System.out.println("password=" + password);
         User user = userService.login(username, password);
         System.out.println(user);
-//        if (user != null) {
-//            request.getSession().setAttribute("user", user);
-//            return "index";
-//        } else {
-//            return "userLogin";
-//        }
-        return "userLogin";
+        if (user != null) {
+            request.getSession().setAttribute("user", user);
+            return "success";
+        } else {
+            return "userLogin";
+        }
+    }
+
+    @RequestMapping("/loginOut")
+    public String loginOut(HttpServletRequest request){
+        request.getSession().removeAttribute("user");
+        return "success";
     }
 
     @RequestMapping("/registerUI")
