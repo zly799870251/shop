@@ -3,6 +3,8 @@ package cn.zhangly.shop.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+import java.util.Set;
 
 /**
  * Created by 青葉 on 2017/4/21.
@@ -17,11 +19,13 @@ public class Commodity extends BaseEntity {
     @Column(name = "markPrice")
     private double markPrice;
     private String description;
-    private String image;
     private Integer seecount; /* 查看数 */
     private Integer buycount; /* 购买数 */
     @Column(name = "classId")
     private Long classId;
+
+    @Transient
+    private Set<Images> images;
 
     @Override
     public String toString() {
@@ -30,10 +34,10 @@ public class Commodity extends BaseEntity {
                 ", mallPrice=" + mallPrice +
                 ", markPrice=" + markPrice +
                 ", description='" + description + '\'' +
-                ", image='" + image + '\'' +
                 ", seecount=" + seecount +
                 ", buycount=" + buycount +
                 ", classId=" + classId +
+                ", images=" + images +
                 '}';
     }
 
@@ -69,10 +73,6 @@ public class Commodity extends BaseEntity {
         this.description = description;
     }
 
-    public String getImage() {
-        return image;
-    }
-
     public Integer getSeecount() {
         return seecount;
     }
@@ -89,15 +89,19 @@ public class Commodity extends BaseEntity {
         this.buycount = buycount;
     }
 
-    public void setImage(String image) {
-        this.image = image;
-    }
-
     public Long getClassId() {
         return classId;
     }
 
     public void setClassId(Long classId) {
         this.classId = classId;
+    }
+
+    public Set<Images> getImages() {
+        return images;
+    }
+
+    public void setImages(Set<Images> images) {
+        this.images = images;
     }
 }

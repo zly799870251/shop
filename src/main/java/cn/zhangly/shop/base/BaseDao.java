@@ -21,5 +21,7 @@ public class BaseDao {
     protected OrderMapper orderMapper;
     @Resource
     protected UserMapper userMapper;
+    @Resource
+    protected ImagesMapper imagesMapper;
 
 }
