@@ -19,4 +19,5 @@ public interface CommodityService {
 
     void delete(Long id);
 
+    List<Commodity> findByClassId(Long classId);
 }

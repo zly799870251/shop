@@ -1,5 +1,5 @@
-CREATE DATABASE shop;
-USE shop;
+CREATE DATABASE `shop` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `shop`;
 CREATE TABLE `user`( /* 用户表 */
 `id` BIGINT PRIMARY KEY AUTO_INCREMENT,
 `username` VARCHAR(50),
@@ -27,6 +27,8 @@ CREATE TABLE `commodity`( /* 商品表 */
 `image` VARCHAR(255),
 `seecount` int,/* 查看数量 */
 `buycount` int,/* 购买数量 */
+  `state` VARCHAR(50), /* 上架状态 */
+  `inventory` INT, /* 库存数量 */
 `classId` BIGINT,
 CONSTRAINT `classId_fk` FOREIGN KEY (`classId`) REFERENCES `classification` (`id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;

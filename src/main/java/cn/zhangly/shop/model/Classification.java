@@ -2,6 +2,7 @@ package cn.zhangly.shop.model;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.Set;
 
 /**
  * Created by 青葉 on 2017/4/21.
@@ -13,11 +14,15 @@ public class Classification extends BaseEntity {
     @Column(name = "parentId")
     private Long parentId;
 
+    @Transient
+    private Set<Classification> children;
+
     @Override
     public String toString() {
         return "Classification{" +
                 "name='" + name + '\'' +
                 ", parentId=" + parentId +
+                ", children=" + children +
                 '}';
     }
 
@@ -35,5 +40,13 @@ public class Classification extends BaseEntity {
 
     public void setParentId(Long parentId) {
         this.parentId = parentId;
+    }
+
+    public Set<Classification> getChildren() {
+        return children;
+    }
+
+    public void setChildren(Set<Classification> children) {
+        this.children = children;
     }
 }

@@ -5,6 +5,7 @@ import cn.zhangly.shop.model.Commodity;
 import cn.zhangly.shop.service.CommodityService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
 
@@ -37,6 +38,12 @@ public class CommodityServiceImpl extends BaseDao implements CommodityService {
     @Override
     public void delete(Long id) {
         commodityMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    public List<Commodity> findByClassId(Long classId) {
+        Example example = new Example(Commodity.class);
+        return null;
     }
 
 }

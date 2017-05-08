@@ -57,9 +57,9 @@
                 <a href="${request.contextPath}/home/index.action">首页</a>
                 |
             </li>
-            <#list Application["topClassificationList"] as classification>
+            <#list Application.topClassificationList as classification>
                 <li>
-                    <a href="#">${classification.name}</a>
+                    <a href="${request.contextPath}/classification/commoditylist.action?classId=${classification.id}">${classification.name}</a>
                     |
                 </li>
             </#list>

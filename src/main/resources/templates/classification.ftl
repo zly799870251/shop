@@ -1,261 +1,317 @@
-﻿<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>网上商城</title>
-    <#include "public/classform.ftl">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>传智网上商城</title>
+<#include "public/classform.ftl">
     <link href="${request.contextPath}/templates/css/product.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <#include "public/header.ftl">
 
-<div class="container productContent">
+<div class="container productList">
     <div class="span6">
         <div class="hotProductCategory">
             <dl>
-                <dt>
-                    <a href="vegetableClass.ftl">蔬菜</a>
-                </dt>
-                <dd>
-                    <a>无公害蔬菜</a>
-                </dd>
-                <dd>
-                    <a>特菜类</a>
-                </dd>
-                <dd>
-                    <a>有机蔬菜</a>
-                </dd>
-                <dd>
-                    <a>蔬菜套餐</a>
-                </dd>
-            </dl>
-            <dl>
-                <dt>
-                    <a>水果</a>
-                </dt>
-                <dd>
-                    <a>国产</a>
-                </dd>
-                <dd>
-                    <a>进口</a>
-                </dd>
-
-            </dl>
-            <dl>
-                <dt>
-                    <a>肉类</a>
-                </dt>
-                <dd>
-                    <a>猪肉</a>
-                </dd>
-                <dd>
-                    <a>牛羊肉</a>
-                </dd>
-                <dd>
-                    <a>家禽</a>
-                </dd>
-                <dd>
-                    <a>鱼</a>
-                </dd>
-            </dl>
-            <dl>
-                <dt>
-                    <a>蛋、奶及肉制品类</a>
-                </dt>
-                <dd>
-                    <a>蛋</a>
-                </dd>
-                <dd>
-                    <a>奶</a>
-                </dd>
-                <dd>
-                    <a>豆制品</a>
-                </dd>
-            </dl>
-            <dl>
-                <dt>
-                    <a>干果</a>
-                </dt>
-                <dd>
-                    <a>干制坚果</a>
-                </dd>
-                <dd>
-                    <a>干制果实/果肉</a>
-                </dd>
-                <dd>
-                    <a>干制种仁</a>
-                </dd>
-                <dd>
-                    <a> </a>
-                </dd>
-            </dl>
-            <dl>
-                <dt>
-                    <a>古薯杂粮</a>
-                </dt>
-                <dd>
-                    <a>米类</a>
-                </dd>
-                <dd>
-                    <a>杂粮</a>
-                </dd>
-                <dd>
-                    <a>面粉</a>
-                </dd>
-                <dd>
-                    <a>薯类</a>
-                </dd>
-            </dl>
-            <dl>
-                <dt>
-                    <a>油</a>
-                </dt>
-                <dd>
-                    <a>茶油</a>
-                </dd>
-                <dd>
-                    <a>核桃油</a>
-                </dd>
-                <dd>
-                    <a>橄榄油</a>
-                </dd>
-                <dd>
-                    <a>芥花籽油</a>
-                </dd>
-            </dl>
-            <dl>
-                <dt>
-                    <a>水、软饮</a>
-                </dt>
-                <dd>
-                    <a>水</a>
-                </dd>
-                <dd>
-                    <a>软饮</a>
-                </dd>
-            </dl>
-            <dl>
-                <dt>
-                    <a>茶</a>
-                </dt>
-                <dd>
-                    <a>绿茶</a>
-                </dd>
-                <dd>
-                    <a>红茶</a>
-                </dd>
-                <dd>
-                    <a>乌龙茶</a>
-                </dd>
-                <dd>
-                    <a>白茶</a>
-                </dd>
-            </dl>
-            <dl class="last">
-                <dt>
-                    <a>亿家卡</a>
-                </dt>
-                <dd>
-                    <a>亿家卡</a>
-                </dd>
-                <dd>
-                    <a> </a>
-                </dd>
+                <#list Application.topClassificationList as classification>
+                    <dt>
+                        <a href="${request.contextPath}/classification/commoditylist.action?classId=${classification.id}">蔬菜</a>
+                    </dt>
+                    <#list classification.children as children>
+                        <dd>
+                            <a href="${request.contextPath}/classification/commoditylist.action?classId=${classification.id}">${children.name}</a>
+                        </dd>
+                    </#list>
+                </#list>
             </dl>
         </div>
-
-
     </div>
     <div class="span18 last">
 
-        <div class="productImage">
-            <a title="" style="outline-style: none; text-decoration: none;" id="zoom"
-               href="http://image/r___________renleipic_01/bigPic1ea8f1c9-8b8e-4262-8ca9-690912434692.jpg"
-               rel="gallery">
-                <div class="zoomPad"><img style="opacity: 1;" title="" class="medium"
-                                          src="image/r___________renleipic_01/bigPic5f3622b8-028a-4e62-a77f-f41a16d715ed.jpg">
-                    <div style="display: block; top: 0px; left: 162px; width: 0px; height: 0px; position: absolute; border-width: 1px;"
-                         class="zoomPup"></div>
-                    <div style="position: absolute; z-index: 5001; left: 312px; top: 0px; display: block;"
-                         class="zoomWindow">
-                        <div style="width: 368px;" class="zoomWrapper">
-                            <div style="width: 100%; position: absolute; display: none;" class="zoomWrapperTitle"></div>
-                            <div style="width: 0%; height: 0px;" class="zoomWrapperImage"><img
-                                    src="%E5%B0%9A%E9%83%BD%E6%AF%94%E6%8B%89%E5%A5%B3%E8%A3%852013%E5%A4%8F%E8%A3%85%E6%96%B0%E6%AC%BE%E8%95%BE%E4%B8%9D%E8%BF%9E%E8%A1%A3%E8%A3%99%20%E9%9F%A9%E7%89%88%E4%BF%AE%E8%BA%AB%E9%9B%AA%E7%BA%BA%E6%89%93%E5%BA%95%E8%A3%99%E5%AD%90%20%E6%98%A5%E6%AC%BE%20-%20Powered%20By%20Mango%20Team_files/6d53c211-2325-41ed-8696-d8fbceb1c199-large.jpg"
-                                    style="position: absolute; border: 0px none; display: block; left: -432px; top: 0px;">
-                            </div>
-                        </div>
-                    </div>
-                    <div style="visibility: hidden; top: 129.5px; left: 106px; position: absolute;" class="zoomPreload">
-                        Loading zoom
-                    </div>
-                </div>
-            </a>
+        <form id="productForm" action="${request.contextPath}/templates/image/蔬菜 - Powered By Mango Team.htm"
+              method="get">
+            <input type="hidden" id="brandId" name="brandId" value="">
+            <input type="hidden" id="promotionId" name="promotionId" value="">
+            <input type="hidden" id="orderType" name="orderType" value="">
+            <input type="hidden" id="pageNumber" name="pageNumber" value="1">
+            <input type="hidden" id="pageSize" name="pageSize" value="20">
 
-        </div>
-        <div class="name">大冬瓜</div>
-        <div class="sn">
-            <div>编号：751</div>
-        </div>
-        <div class="info">
-            <dl>
-                <dt>亿家价:</dt>
-                <dd>
-                    <strong>￥：4.78元/份</strong>
-                    参 考 价：
-                    <del>￥6.00元/份</del>
-                </dd>
-            </dl>
-            <dl>
-                <dt>促销:</dt>
-                <dd>
-                    <a target="_blank" title="限时抢购 (2014-07-30 ~ 2015-01-01)">限时抢购</a>
-                </dd>
-            </dl>
-            <dl>
-                <dt></dt>
-                <dd>
-                    <span>    </span>
-                </dd>
-            </dl>
-        </div>
-        <div class="action">
+            <div id="result" class="result table clearfix">
+                <ul>
+                    <li>
+                        <a href="${request.contextPath}/templates/京华商城分页面.htm">
+                            <img src="${request.contextPath}/templates/image/4a51167a-89d5-4710-aca2-7c76edc355b8-thumbnail.jpg"
+                                 width="170" height="170" style="display: inline-block;">
 
-            <dl class="quantity">
-                <dt>购买数量:</dt>
-                <dd>
-                    <input id="quantity" name="quantity" value="1" maxlength="4" onpaste="return false;" type="text">
-                    <div>
-                        <span id="increase" class="increase">&nbsp;</span>
-                        <span id="decrease" class="decrease">&nbsp;</span>
-                    </div>
-                </dd>
-                <dd>
-                    件
-                </dd>
-            </dl>
-            <div class="buy">
-                <input id="addCart" class="addCart" value="加入购物车" type="button">
+                            <span style='color:green'>
+											 大冬瓜
+											</span>
 
+                            <span class="price">
+												商城价： ￥4.78/份
+											</span>
+
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                            <img src="${request.contextPath}/templates/image/0ff130db-0a1b-4b8d-a918-ed9016317009-thumbnail.jpg"
+                                 width="170" height="170" " style="display: inline-block;">
+                            <span style='color:green'>
+											   圆白菜
+											</span>
+                            <span class="price">
+												商城价： ￥1.78/份
+											</span>
+
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                            <img src="${request.contextPath}/templates/image/f5e39c37-94b2-462e-8e58-8bde3c5f1b8c-thumbnail.jpg"
+                                 width="170" height="170" style="display: inline-block;">
+                            <span style='color:green'>
+											   甜玉米
+											</span>
+                            <span class="price">
+												商城价： ￥4.48/份
+											</span>
+
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                            <img src="${request.contextPath}/templates/image/f37ba36a-181b-4161-a88f-f74c9adb485d-thumbnail.jpg"
+                                 width="170" height="170" style="display: inline-block;">
+                            <span style='color:green'>
+											   胡萝卜
+											</span>
+                            <span class="price">
+												商城价： ￥1.58/份
+											</span>
+
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                            <img src="${request.contextPath}/templates/image/93b9e55f-cbae-4c3c-b2f7-2636c7369db7-thumbnail.jpg"
+                                 width="170" height="170" style="display: inline-block;">
+                            <span style='color:green'>
+											   芹菜
+											</span>
+                            <span class="price">
+												商城价： ￥2.18/份
+											</span>
+
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                            <img src="${request.contextPath}/templates/image/51afeef5-f6cb-4936-abea-315cfca0edc0-thumbnail.jpg"
+                                 width="170" height="170" style="display: inline-block;">
+                            <span style='color:green'>
+											   小西红柿
+											</span>
+                            <span class="price">
+												商城价： ￥6.98/份
+											</span>
+
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                            <img src="${request.contextPath}/templates/image/059b5245-e3c8-43bf-80fe-700f0e4e68b8-thumbnail.jpg"
+                                 width="170" height="170" style="display: inline-block;">
+                            <span style='color:green'>
+											   白萝卜
+											</span>
+                            <span class="price">
+												商城价： ￥3.98/份
+											</span>
+
+                        </a>
+                    </li>
+
+                    <li>
+                        <a>
+                            <img src="${request.contextPath}/templates/image/750a9ce8-8c19-444d-b8cc-f3e7e786ec5d-thumbnail.jpg"
+                                 width="170" height="170" style="display: inline-block;">
+                            <span style='color:green'>
+											   菠菜
+											</span>
+                            <span class="price">
+												商城价： ￥3.48/份
+											</span>
+
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                            <img src="${request.contextPath}/templates/image/bigPic372e7faa-3ad0-444d-a89b-a8e9f0d6e929.jpg"
+                                 width="170" height="170">
+                            <span style='color:green'>
+											   香菜
+											</span>
+                            <span class="price">
+												商城价： ￥2.98/份
+											</span>
+
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                            <img src="${request.contextPath}/templates/image/bigPica7e5d3dd-5984-4d0f-9851-35cc0987d9b9.jpg"
+                                 width="170" height="170">
+                            <span style='color:green'>
+											   白菜花
+											</span>
+                            <span class="price">
+												商城价： ￥5.38/份
+											</span>
+
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                            <img src="${request.contextPath}/templates/image/bigPica5720219-ba48-460a-a084-24d5b314bd03.jpg"
+                                 width="170" height="170">
+                            <span style='color:green'>
+											   韭菜
+											</span>
+                            <span class="price">
+												商城价： ￥2.38/份
+											</span>
+
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                            <img src="${request.contextPath}/templates/image/bigPicaa443d05-27b4-4964-958e-c81536f01d04.jpg"
+                                 width="170" height="170">
+                            <span style='color:green'>
+											   土豆
+											</span>
+                            <span class="price">
+												商城价： ￥2.48/份
+											</span>
+
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                            <img src="${request.contextPath}/templates/image/bigPicc1e3a29e-17f5-4d9f-a186-b2c5a0b39b88.jpg"
+                                 width="170" height="170">
+                            <span style='color:green'>
+											   黄瓜
+											</span>
+                            <span class="price">
+												商城价： ￥2.58/份
+											</span>
+
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                            <img src="${request.contextPath}/templates/image/bigPicd0459632-fe4e-4a5d-8373-1a67c9f43ec2.jpg"
+                                 width="170" height="170">
+                            <span style='color:green'>
+											   西红柿
+											</span>
+                            <span class="price">
+												商城价： ￥2.58/份
+											</span>
+
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                            <img src="${request.contextPath}/templates/image/bigPice7c2e240-4147-4c11-b369-db3765ec3df9.jpg"
+                                 width="170" height="170">
+                            <span style='color:green'>
+											   大白菜
+											</span>
+                            <span class="price">
+												商城价： ￥8.78/份
+											</span>
+
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                            <img src="${request.contextPath}/templates/image/54890cf9-91b0-40bc-9f68-51462e9c43a8.jpg"
+                                 width="170" height="170">
+                            <span style='color:green'>
+											   紫甘蓝
+											</span>
+                            <span class="price">
+												商城价： ￥5.98/份
+											</span>
+
+                        </a>
+                    </li>
+                    <li class="last">
+                        <a>
+                            <img src="${request.contextPath}/templates/image/bigPic4ed6edbf-fb3e-49a7-be5e-361b2ce02961.jpg"
+                                 width="170" height="170">
+                            <span style='color:green'>
+											   荷兰豆
+											</span>
+                            <span class="price">
+												商城价： ￥9.28/份
+											</span>
+
+                        </a>
+                    </li>
+                    <li class="last">
+                        <a>
+                            <img src="${request.contextPath}/templates/image/bigPic5ab54f67-a479-48fe-a41d-7d34b57036a3.jpg"
+                                 width="170" height="170">
+                            <span style='color:green'>
+											   尖椒
+											</span>
+                            <span class="price">
+												商城价： ￥2.48/份
+											</span>
+
+                        </a>
+                    </li>
+                    <li class="last">
+                        <a>
+                            <img src="${request.contextPath}/templates/image/bigPic13867cc1-935a-4a3a-98f9-edf87ddb1c09.jpg"
+                                 width="170" height="170">
+                            <span style='color:green'>
+											   小香葱
+											</span>
+                            <span class="price">
+												商城价： ￥2.98/份
+											</span>
+
+                        </a>
+                    </li>
+                    <li class="last">
+                        <a>
+                            <img src="${request.contextPath}/templates/image/bigPicee0785e3-68e2-4e23-93ef-68904bc2a3c6.jpg"
+                                 width="170" height="170">
+                            <span style='color:green'>
+											  圆茄子
+											</span>
+                            <span class="price">
+												商城价： ￥1.58/份
+											</span>
+
+                        </a>
+                    </li>
+                </ul>
             </div>
-        </div>
-        <div id="bar" class="bar">
-            <ul>
-                <li id="introductionTab">
-                    <a href="#introduction">商品介绍</a>
-                </li>
+            <div class="pagination">
+                <span class="firstPage">&nbsp;</span>
+                <span class="previousPage">&nbsp;</span>
+                <span class="currentPage">1</span>
+                <a href="javascript: $.pageSkip(2);">2</a>
+                <a class="nextPage" href="javascript: $.pageSkip(2);">&nbsp;</a>
 
-            </ul>
-        </div>
-
-        <div id="introduction" name="introduction" class="introduction">
-            <div class="title">
-                <strong>商品介绍</strong>
+                <a class="lastPage" href="javascript: $.pageSkip(2);">&nbsp;</a>
             </div>
-            <div>
-                <img src="image/r___________renleipic_01/bigPic139f030b-d68b-41dd-be6d-b94cc568d3c5.jpg">
-            </div>
-        </div>
-
-
+        </form>
     </div>
 </div>
 
