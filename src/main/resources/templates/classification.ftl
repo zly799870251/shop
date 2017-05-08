@@ -11,18 +11,18 @@
 <div class="container productList">
     <div class="span6">
         <div class="hotProductCategory">
+        <#list Application.topClassificationList as classification>
             <dl>
-                <#list Application.topClassificationList as classification>
-                    <dt>
-                        <a href="${request.contextPath}/classification/commoditylist.action?classId=${classification.id}">蔬菜</a>
-                    </dt>
-                    <#list classification.children as children>
-                        <dd>
-                            <a href="${request.contextPath}/classification/commoditylist.action?classId=${classification.id}">${children.name}</a>
-                        </dd>
-                    </#list>
+                <dt>
+                    <a href="${request.contextPath}/classification/commoditylist.action?classId=${classification.id}">${classification.name}</a>
+                </dt>
+                <#list classification.children as children>
+                    <dd>
+                        <a href="${request.contextPath}/classification/commoditylist.action?classId=${children.id}">${children.name}</a>
+                    </dd>
                 </#list>
             </dl>
+        </#list>
         </div>
     </div>
     <div class="span18 last">
