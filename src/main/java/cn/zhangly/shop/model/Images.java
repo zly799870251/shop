@@ -1,5 +1,6 @@
 package cn.zhangly.shop.model;
 
+import javax.persistence.Column;
 import javax.persistence.Table;
 
 /**
@@ -9,13 +10,14 @@ import javax.persistence.Table;
 public class Images extends BaseEntity {
 
     private String path;
-    private Long dependentId;
+    @Column(name = "commodityId")
+    private Long commodityId;
 
     @Override
     public String toString() {
         return "Images{" +
                 "path='" + path + '\'' +
-                ", dependentId=" + dependentId +
+                ", commodityId=" + commodityId +
                 '}';
     }
 
@@ -27,11 +29,11 @@ public class Images extends BaseEntity {
         this.path = path;
     }
 
-    public Long getDependentId() {
-        return dependentId;
+    public Long getCommodityId() {
+        return commodityId;
     }
 
-    public void setDependentId(Long dependentId) {
-        this.dependentId = dependentId;
+    public void setCommodityId(Long commodityId) {
+        this.commodityId = commodityId;
     }
 }
