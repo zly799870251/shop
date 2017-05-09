@@ -27,7 +27,7 @@
                 <#if Request.commodityList??>
                     <#list Request.commodityList as commodity>
                         <li>
-                            <a href="${request.contextPath}/commodity/details.action?${commodity.id}">
+                            <a href="${request.contextPath}/commodity/details.action?id=${commodity.id}">
                                 <#list commodity.images as image>
                                     <#if image_index == 0>
                                         <img src="${request.contextPath}/templates/image/${image.path}" width="170"

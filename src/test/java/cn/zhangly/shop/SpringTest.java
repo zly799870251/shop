@@ -3,6 +3,7 @@ package cn.zhangly.shop;
 import cn.zhangly.shop.mapper.*;
 import cn.zhangly.shop.model.*;
 import cn.zhangly.shop.service.ClassificationService;
+import cn.zhangly.shop.service.CommodityService;
 import cn.zhangly.shop.service.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,11 +22,11 @@ import javax.annotation.Resource;
 public class SpringTest {
 
     @Resource
-    private ClassificationService userService;
+    private CommodityService commodityService;
 
     @Test
     public void test(){
-        for (Classification classification : userService.findTop()) System.out.println(classification);
+        for (Commodity commodity : commodityService.findAll()) System.out.println(commodity);
     }
 
 }

@@ -23,5 +23,9 @@ public class BaseDao {
     protected UserMapper userMapper;
     @Resource
     protected ImagesMapper imagesMapper;
+    @Resource
+    protected IntroducesMapper introducesMapper;
+    @Resource
+    protected CommtagMapper commtagMapper;
 
 }

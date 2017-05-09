@@ -20,5 +20,4 @@ public class BaseAction {
     protected OrderService orderService;
     @Resource
     protected UserService userService;
-
 }

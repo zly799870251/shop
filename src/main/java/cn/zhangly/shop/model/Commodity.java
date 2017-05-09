@@ -15,9 +15,9 @@ public class Commodity extends BaseEntity {
 
     private String name;
     @Column(name = "mallPrice")
-    private double mallPrice;
+    private double mallPrice; /* 商品现价 */
     @Column(name = "markPrice")
-    private double markPrice;
+    private double markPrice; /* 商品原价 */
     private String description;
     private Integer seecount; /* 查看数 */
     private Integer buycount; /* 购买数 */
@@ -25,7 +25,11 @@ public class Commodity extends BaseEntity {
     private Long classId;
 
     @Transient
-    private Set<Images> images;
+    private Set<Images> images; /* 缩略图集 */
+    @Transient
+    private Set<Introduces> introduces; /* 介绍图集 */
+    @Transient
+    private Set<Commtag> commtags; /* 商品标签 */
 
     @Override
     public String toString() {
@@ -38,6 +42,8 @@ public class Commodity extends BaseEntity {
                 ", buycount=" + buycount +
                 ", classId=" + classId +
                 ", images=" + images +
+                ", introduces=" + introduces +
+                ", commtags=" + commtags +
                 '}';
     }
 
@@ -103,5 +109,21 @@ public class Commodity extends BaseEntity {
 
     public void setImages(Set<Images> images) {
         this.images = images;
+    }
+
+    public Set<Introduces> getIntroduces() {
+        return introduces;
+    }
+
+    public void setIntroduces(Set<Introduces> introduces) {
+        this.introduces = introduces;
+    }
+
+    public Set<Commtag> getCommtags() {
+        return commtags;
+    }
+
+    public void setCommtags(Set<Commtag> commtags) {
+        this.commtags = commtags;
     }
 }
