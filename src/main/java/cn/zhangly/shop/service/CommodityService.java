@@ -1,6 +1,7 @@
 package cn.zhangly.shop.service;
 
 import cn.zhangly.shop.model.Commodity;
+import cn.zhangly.shop.model.PageBean;
 
 import java.util.List;
 
@@ -20,4 +21,6 @@ public interface CommodityService {
     void delete(Long id);
 
     List<Commodity> findByClassId(Long classId);
+
+    PageBean<Commodity> getCommodity(int pageNum, int pageSize, Long classId);
 }

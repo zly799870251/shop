@@ -51,6 +51,7 @@
             <strong>96008/53277764</strong>
         </div>
     </div>
+
     <div class="span24">
         <ul class="mainNav">
             <li>
@@ -59,12 +60,11 @@
             </li>
             <#list Application.topClassificationList as classification>
                 <li>
-                    <a href="${request.contextPath}/classification/commoditylist.action?classId=${classification.id}">${classification.name}</a>
+                    <a href="${request.contextPath}/classification/commoditylist.action?pageNum=0&pageSize=0&classId=${classification.id}">${classification.name}</a>
                     |
                 </li>
             </#list>
         </ul>
     </div>
-
 
 </div>

@@ -5,6 +5,7 @@ import cn.zhangly.shop.model.*;
 import cn.zhangly.shop.service.ClassificationService;
 import cn.zhangly.shop.service.CommodityService;
 import cn.zhangly.shop.service.UserService;
+import com.github.pagehelper.PageHelper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,7 +27,9 @@ public class SpringTest {
 
     @Test
     public void test(){
-        for (Commodity commodity : commodityService.findAll()) System.out.println(commodity);
+        PageBean<Commodity> commodity1 = commodityService.getCommodity(1, 4, 1L);
+        System.out.println(commodity1);
+        for (Commodity commodity : commodity1.getRecodeList()) System.out.println(commodity);
     }
 
 }

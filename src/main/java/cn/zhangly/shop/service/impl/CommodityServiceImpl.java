@@ -3,6 +3,7 @@ package cn.zhangly.shop.service.impl;
 import cn.zhangly.shop.base.BaseDao;
 import cn.zhangly.shop.model.*;
 import cn.zhangly.shop.service.CommodityService;
+import com.github.pagehelper.PageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
@@ -10,6 +11,7 @@ import tk.mybatis.mapper.entity.Example;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by 青葉 on 2017/4/26.
@@ -51,8 +53,44 @@ public class CommodityServiceImpl extends BaseDao implements CommodityService {
         return assembleData(commodityMapper.selectByExample(example));
     }
 
+    @Override
+    public PageBean<Commodity> getCommodity(int pageNum, int pageSize, Long classId) {
+        if (pageNum != 0 && pageSize != 0 && classId != null) {
+            Set<Commodity> commoditySet = new HashSet<Commodity>();
+
+            // 查询对象
+            Classification byId = classificationMapper.selectByPrimaryKey(classId);
+
+            // 添加本级条件
+            Example example = new Example(Commodity.class);
+            Example.Criteria criteria = example.createCriteria();
+            criteria.andEqualTo("classId", classId);
+            example.or(criteria);
+
+            // 添加子级条件
+            if (byId != null && byId.getChildren() != null && byId.getChildren().size() > 0) {
+                for (Classification classification : byId.getChildren()) {
+                    Example.Criteria criteria1 = example.createCriteria();
+                    criteria1.andEqualTo("classId", classification.getId());
+                    example.or(criteria1);
+                }
+            }
+
+            int count = commodityMapper.selectCountByExample(example);
+
+            // 分页并查询
+            PageHelper.startPage(pageNum, pageSize);
+            List<Commodity> commodityList = commodityMapper.selectByExample(example);
+
+            commoditySet.addAll(commodityList);
+            List<Commodity> commodities = assembleData(new ArrayList<Commodity>(commoditySet));
+            return new PageBean<Commodity>(commodities, pageNum, pageSize, count);
+        }
+        return null;
+    }
+
     private Commodity assembleData(Commodity commodity) {
-        if(commodity != null) {
+        if (commodity != null) {
             // 注入缩略图集信息
             Example example = new Example(Images.class);
             Example.Criteria criteria = example.createCriteria();
@@ -67,7 +105,8 @@ public class CommodityServiceImpl extends BaseDao implements CommodityService {
             criteria1.andEqualTo("commodityId", commodity.getId());
             example1.or(criteria1);
             List<Introduces> introduces = introducesMapper.selectByExample(example);
-            if (introduces != null && introduces.size() > 0) commodity.setIntroduces(new HashSet<Introduces>(introduces));
+            if (introduces != null && introduces.size() > 0)
+                commodity.setIntroduces(new HashSet<Introduces>(introduces));
 
             // 注入商品标签集合信息
             Example example2 = new Example(Commtag.class);
@@ -78,7 +117,7 @@ public class CommodityServiceImpl extends BaseDao implements CommodityService {
             if (commtags != null && commtags.size() > 0) commodity.setCommtags(new HashSet<Commtag>(commtags));
 
             return commodity;
-        }else {
+        } else {
             return null;
         }
     }
@@ -101,7 +140,8 @@ public class CommodityServiceImpl extends BaseDao implements CommodityService {
                 criteria1.andEqualTo("commodityId", commodity.getId());
                 example1.or(criteria1);
                 List<Introduces> introduces = introducesMapper.selectByExample(example1);
-                if (introduces != null && introduces.size() > 0) commodity.setIntroduces(new HashSet<Introduces>(introduces));
+                if (introduces != null && introduces.size() > 0)
+                    commodity.setIntroduces(new HashSet<Introduces>(introduces));
 
                 // 注入商品标签集合信息
                 Example example2 = new Example(Commtag.class);
