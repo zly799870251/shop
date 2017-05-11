@@ -32,7 +32,7 @@ public class UserServiceImpl extends BaseDao implements UserService {
 
     @Override
     public void update(User user) {
-        userMapper.updateByExample(user, user.getId());
+        userMapper.updateByPrimaryKey(user);
     }
 
     @Override

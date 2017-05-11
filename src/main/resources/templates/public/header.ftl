@@ -43,9 +43,11 @@
                 </li>
             </ul>
         </div>
-        <div class="cart">
-            <a href="shoppingCart.ftl">购物车</a>
-        </div>
+        <#if Session.user??>
+            <div class="cart">
+                <a href="${request.contextPath}/shoppingCart/shoppingCart.action">购物车</a>
+            </div>
+        </#if>
         <div class="phone">
             客服热线:
             <strong>96008/53277764</strong>
@@ -58,12 +60,12 @@
                 <a href="${request.contextPath}/home/index.action">首页</a>
                 |
             </li>
-            <#list Application.topClassificationList as classification>
-                <li>
-                    <a href="${request.contextPath}/classification/commoditylist.action?pageNum=0&pageSize=0&classId=${classification.id}">${classification.name}</a>
-                    |
-                </li>
-            </#list>
+        <#list Application.topClassificationList as classification>
+            <li>
+                <a href="${request.contextPath}/classification/commoditylist.action?pageNum=0&pageSize=0&classId=${classification.id}">${classification.name}</a>
+                |
+            </li>
+        </#list>
         </ul>
     </div>
 

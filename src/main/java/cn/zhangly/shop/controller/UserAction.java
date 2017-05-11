@@ -1,6 +1,7 @@
 package cn.zhangly.shop.controller;
 
 import cn.zhangly.shop.base.BaseAction;
+import cn.zhangly.shop.model.OrderCommodity;
 import cn.zhangly.shop.model.User;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -31,7 +33,7 @@ public class UserAction extends BaseAction {
         System.out.println(user);
         if (user != null) {
             request.getSession().setAttribute("user", user);
-            request.setAttribute("message","登录成功！");
+            request.setAttribute("message", "登录成功！");
             return "message";
         } else {
             return "userLogin";
@@ -39,9 +41,9 @@ public class UserAction extends BaseAction {
     }
 
     @RequestMapping("/loginOut")
-    public String loginOut(HttpServletRequest request){
+    public String loginOut(HttpServletRequest request) {
         request.getSession().removeAttribute("user");
-        request.setAttribute("message","登出成功！");
+        request.setAttribute("message", "登出成功！");
         return "message";
     }
 
@@ -51,11 +53,11 @@ public class UserAction extends BaseAction {
     }
 
     @RequestMapping("/register")
-    public String register(User user, String checkcode,HttpServletRequest request) {
+    public String register(User user, String checkcode, HttpServletRequest request) {
         user.setState(0);
         user.setActivCode(UUID.randomUUID().toString());
         userService.save(user);
-        request.setAttribute("message","注册成功！");
+        request.setAttribute("message", "注册成功！");
         return "message";
     }
 

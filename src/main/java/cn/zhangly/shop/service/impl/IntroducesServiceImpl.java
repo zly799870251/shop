@@ -33,7 +33,7 @@ public class IntroducesServiceImpl extends BaseDao implements IntroducesService 
 
     @Override
     public void update(Introduces introduces) {
-        introducesMapper.updateByExample(introduces, introduces.getId());
+        introducesMapper.updateByPrimaryKey(introduces);
     }
 
     @Override

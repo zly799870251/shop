@@ -34,7 +34,7 @@ public class ClassificationServiceImpl extends BaseDao implements Classification
 
     @Override
     public void update(Classification classification) {
-        classificationMapper.updateByExample(classification, classification.getId());
+        classificationMapper.updateByPrimaryKey(classification);
     }
 
     @Override

@@ -36,7 +36,7 @@ public class CommodityServiceImpl extends BaseDao implements CommodityService {
 
     @Override
     public void update(Commodity commodity) {
-        commodityMapper.updateByExample(commodity, commodity.getId());
+        commodityMapper.updateByPrimaryKey(commodity);
     }
 
     @Override
@@ -89,7 +89,8 @@ public class CommodityServiceImpl extends BaseDao implements CommodityService {
         return null;
     }
 
-    private Commodity assembleData(Commodity commodity) {
+    @Override
+    public Commodity assembleData(Commodity commodity) {
         if (commodity != null) {
             // 注入缩略图集信息
             Example example = new Example(Images.class);
@@ -122,7 +123,8 @@ public class CommodityServiceImpl extends BaseDao implements CommodityService {
         }
     }
 
-    private List<Commodity> assembleData(List<Commodity> commodityList) {
+    @Override
+    public List<Commodity> assembleData(List<Commodity> commodityList) {
         List<Commodity> returnlist = new ArrayList<Commodity>();
         if (commodityList != null && commodityList.size() > 0) {
             for (Commodity commodity : commodityList) {

@@ -23,4 +23,8 @@ public interface CommodityService {
     List<Commodity> findByClassId(Long classId);
 
     PageBean<Commodity> getCommodity(int pageNum, int pageSize, Long classId);
+
+    Commodity assembleData(Commodity commodity);
+
+    List<Commodity> assembleData(List<Commodity> commodityList);
 }

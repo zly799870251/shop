@@ -2,9 +2,7 @@ package cn.zhangly.shop;
 
 import cn.zhangly.shop.mapper.*;
 import cn.zhangly.shop.model.*;
-import cn.zhangly.shop.service.ClassificationService;
-import cn.zhangly.shop.service.CommodityService;
-import cn.zhangly.shop.service.UserService;
+import cn.zhangly.shop.service.*;
 import com.github.pagehelper.PageHelper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,6 +11,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * Created by 青葉 on 2017/4/21.
@@ -23,13 +22,12 @@ import javax.annotation.Resource;
 public class SpringTest {
 
     @Resource
-    private CommodityService commodityService;
+    private OrderService service;
 
     @Test
     public void test(){
-        PageBean<Commodity> commodity1 = commodityService.getCommodity(1, 4, 1L);
-        System.out.println(commodity1);
-        for (Commodity commodity : commodity1.getRecodeList()) System.out.println(commodity);
+        List<Order> list = service.findOrderByUser(1L);
+        for (Order entity : list) System.out.println(entity);
     }
 
 }

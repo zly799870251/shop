@@ -2,6 +2,7 @@ package cn.zhangly.shop.model;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.Set;
 
 /**
  * Created by 青葉 on 2017/4/24.
@@ -16,6 +17,9 @@ public class OrderCommodity extends BaseEntity {
     @Column(name = "commodityId")
     private Long commodityId;
 
+    @Transient
+    private Commodity commodity;
+
     @Override
     public String toString() {
         return "OrderCommodity{" +
@@ -23,6 +27,7 @@ public class OrderCommodity extends BaseEntity {
                 ", price=" + price +
                 ", orderId=" + orderId +
                 ", commodityId=" + commodityId +
+                ", commodity=" + commodity +
                 '}';
     }
 
@@ -56,5 +61,13 @@ public class OrderCommodity extends BaseEntity {
 
     public void setCommodityId(Long commodityId) {
         this.commodityId = commodityId;
+    }
+
+    public Commodity getCommodity() {
+        return commodity;
+    }
+
+    public void setCommodity(Commodity commodity) {
+        this.commodity = commodity;
     }
 }

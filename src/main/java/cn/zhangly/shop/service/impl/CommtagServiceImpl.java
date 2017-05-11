@@ -34,7 +34,7 @@ public class CommtagServiceImpl extends BaseDao implements CommtagService {
 
     @Override
     public void update(Commtag commtag) {
-        commtagMapper.updateByExample(commtag, commtag.getId());
+        commtagMapper.updateByPrimaryKey(commtag);
     }
 
     @Override

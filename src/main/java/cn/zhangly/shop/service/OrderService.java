@@ -1,6 +1,6 @@
 package cn.zhangly.shop.service;
 
-import cn.zhangly.shop.model.Order;
+import cn.zhangly.shop.model.*;
 
 import java.util.List;
 
@@ -19,4 +19,11 @@ public interface OrderService {
 
     void delete(Long id);
 
+    List<Order> findOrderByUser(Long userId);
+
+    Order assembleData(Order order);
+
+    List<Order> assembleData(List<Order> orders);
+
+    void addOrderCommodity(OrderCommodity orderCommodity, Long userId);
 }

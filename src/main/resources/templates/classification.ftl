@@ -43,29 +43,29 @@
         <#if Request.pageBean??>
             <span class="firstPage">
                 <#if Request.pageBean.pageNum != 1>
-                    <a href="${request.contextPath}/classification/commoditylist.action?pageNum=1&classId=${Request.classId}" style="width: 100%;">&nbsp;</a>
+                    <a href="${request.contextPath}/classification/commoditylist.action?pageNum=1&classId=${Request.classId}" style="width: 18px;margin: 0 0;padding: 0 0;">&nbsp;</a>
                 </#if>
                 </span>
             <span class="previousPage">
                 <#if Request.pageBean.pageNum != 1>
-                    <a href="${request.contextPath}/classification/commoditylist.action?pageNum=${Request.pageBean.pageNum-1}&classId=${Request.classId}" style="width: 100%;">&nbsp;</a>
+                    <a href="${request.contextPath}/classification/commoditylist.action?pageNum=${Request.pageBean.pageNum-1}&classId=${Request.classId}" style="width: 18px;margin: 0 0;padding: 0 0;">&nbsp;</a>
                 </#if>
                 </span>
             <#list 1..Request.pageBean.pageCount as num>
                 <#if num == Request.pageBean.pageNum>
                     <span class="currentPage">${num}</span>
                 <#else>
-                    <a href="${request.contextPath}/classification/commoditylist.action?pageNum=${num}&classId=${Request.classId}" style="width: 100%;">${num}</a>
+                    <a href="${request.contextPath}/classification/commoditylist.action?pageNum=${num}&classId=${Request.classId}">${num}</a>
                 </#if>
             </#list>
             <span class="nextPage">
                 <#if Request.pageBean.pageNum != Request.pageBean.pageCount>
-                    <a href="${request.contextPath}/classification/commoditylist.action?pageNum=${Request.pageBean.pageNum+1}&classId=${Request.classId}" style="width: 100%;">&nbsp;</a>
+                    <a href="${request.contextPath}/classification/commoditylist.action?pageNum=${Request.pageBean.pageNum+1}&classId=${Request.classId}" style="width: 18px;margin: 0 0;padding: 0 0;">&nbsp;</a>
                 </#if>
                 </span>
             <span class="lastPage">
                 <#if Request.pageBean.pageNum != Request.pageBean.pageCount>
-                    <a href="${request.contextPath}/classification/commoditylist.action?pageNum=${Request.pageBean.pageCount}&classId=${Request.classId}" style="width: 100%;">&nbsp;</a>
+                    <a href="${request.contextPath}/classification/commoditylist.action?pageNum=${Request.pageBean.pageCount}&classId=${Request.classId}" style="width: 18px;margin: 0 0;padding: 0 0;">&nbsp;</a>
                 </#if>
                 </span>
         </#if>

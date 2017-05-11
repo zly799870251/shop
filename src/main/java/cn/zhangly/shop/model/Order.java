@@ -3,6 +3,7 @@ package cn.zhangly.shop.model;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Set;
 
 /**
  * Created by 青葉 on 2017/4/21.
@@ -12,7 +13,7 @@ public class Order extends BaseEntity {
 
     @Column(name = "createTime")
     private Date createTime;
-    private Double price;
+    private Double price = 0.00;
     private String state;
     private String address;
     @Column(name = "phoneNumber")
@@ -20,6 +21,9 @@ public class Order extends BaseEntity {
     private String consignee; // 收货人
     @Column(name = "userId")
     private Long userId;
+
+    @Transient
+    private Set<OrderCommodity> orderItem;
 
     @Override
     public String toString() {
@@ -31,6 +35,7 @@ public class Order extends BaseEntity {
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", consignee='" + consignee + '\'' +
                 ", userId=" + userId +
+                ", orderItem=" + orderItem +
                 '}';
     }
 
@@ -88,5 +93,13 @@ public class Order extends BaseEntity {
 
     public void setUserId(Long userId) {
         this.userId = userId;
+    }
+
+    public Set<OrderCommodity> getOrderItem() {
+        return orderItem;
+    }
+
+    public void setOrderItem(Set<OrderCommodity> orderItem) {
+        this.orderItem = orderItem;
     }
 }

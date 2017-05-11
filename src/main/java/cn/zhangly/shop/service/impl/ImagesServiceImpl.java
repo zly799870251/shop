@@ -32,7 +32,7 @@ public class ImagesServiceImpl extends BaseDao implements ImagesService {
 
     @Override
     public void update(Images images) {
-        imagesMapper.updateByExample(images, images.getId());
+        imagesMapper.updateByPrimaryKey(images);
     }
 
     @Override

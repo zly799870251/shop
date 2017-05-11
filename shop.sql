@@ -56,6 +56,7 @@ CREATE TABLE `order_commodity` (/* 订单项表 */
   `id`          BIGINT PRIMARY KEY AUTO_INCREMENT,
   `commodityId` BIGINT,
   `orderId`     BIGINT,
+  `userId`      BIGINT,
   `number`      INT,
   `price`       DOUBLE,
   CONSTRAINT `commodityId_fk` FOREIGN KEY (`commodityId`) REFERENCES `commodity` (`id`),
@@ -182,14 +183,14 @@ INSERT INTO `introduce` (`path`, `commodityId`) VALUES
   ('bigPic5ab54f67-a479-48fe-a41d-7d34b57036a3.jpg', 19),
   ('bigPic13867cc1-935a-4a3a-98f9-edf87ddb1c09.jpg', 20),
   ('bigPicee0785e3-68e2-4e23-93ef-68904bc2a3c6.jpg', 21);
-CREATE TABLE `commtag` (
-  `id`          BIGINT PRIMARY KEY AUTO_INCREMENT,
-  `title`       VARCHAR(50),
-  `tagcolor`    VARCHAR(50),
-  `commodityId` BIGINT
-);
 INSERT INTO `commtag` (`title`, `tagcolor`, `commodityId`) VALUES
   ('限时抢购', 'red', 2),
   ('五一促销', 'orange', 3),
   ('冲钻促销', 'orange', 4),
   ('双十一', 'green', 5);
+INSERT INTO `orders` (`price`, `state`, `address`, `phoneNumber`, `consignee`, `userId`) VALUES
+  (0, '未支付', '地址', '电话号码', '收货人', '1');
+INSERT INTO `order_commodity` (`commodityId`, `number`, `price`,`userId`) VALUES
+  (2, 1, 0, 1),
+  (3, 1, 0, 1),
+  (4, 1, 0, 1);

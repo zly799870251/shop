@@ -1,11 +1,10 @@
 package cn.zhangly.shop.base;
 
-import cn.zhangly.shop.service.ClassificationService;
-import cn.zhangly.shop.service.CommodityService;
-import cn.zhangly.shop.service.OrderService;
-import cn.zhangly.shop.service.UserService;
+import cn.zhangly.shop.model.User;
+import cn.zhangly.shop.service.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Created by 青葉 on 2017/4/26.
@@ -20,4 +19,11 @@ public class BaseAction {
     protected OrderService orderService;
     @Resource
     protected UserService userService;
+    @Resource
+    protected OrderCommodityService orderCommodityService;
+
+    protected User getCurrentUser(HttpServletRequest request){
+        return  (User) request.getSession().getAttribute("user");
+    }
+
 }
