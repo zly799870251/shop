@@ -189,8 +189,8 @@ INSERT INTO `commtag` (`title`, `tagcolor`, `commodityId`) VALUES
   ('冲钻促销', 'orange', 4),
   ('双十一', 'green', 5);
 INSERT INTO `orders` (`price`, `state`, `address`, `phoneNumber`, `consignee`, `userId`) VALUES
-  (0, '未支付', '地址', '电话号码', '收货人', '1');
-INSERT INTO `order_commodity` (`commodityId`, `number`, `price`,`userId`) VALUES
-  (2, 1, 0, 1),
-  (3, 1, 0, 1),
-  (4, 1, 0, 1);
+  (0, 'unpaid', '地址', '电话号码', '收货人', '1');
+INSERT INTO `order_commodity` (`commodityId`, `orderId`, `number`, `price`, `userId`) VALUES
+  (2, 1, 1, 0, 1),
+  (3, 1, 1, 0, 1),
+  (4, 1, 1, 0, 1);

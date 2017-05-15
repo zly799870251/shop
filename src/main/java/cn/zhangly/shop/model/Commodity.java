@@ -9,7 +9,6 @@ import java.util.Set;
 /**
  * Created by 青葉 on 2017/4/21.
  */
-@Entity
 @Table(name = "commodity")
 public class Commodity extends BaseEntity {
 
