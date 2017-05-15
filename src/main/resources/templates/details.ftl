@@ -86,7 +86,11 @@
                         '${request.contextPath}/shoppingCart/addShoppingCart.action',
                         {commodityId:$("#commodityId").val(),number:$("#number").val()},
                         function (data) {
-                            alert('商品已成功加入购物车!');
+                            if (data.eq("error")){
+                                alert("尚未登录，请登陆后重试！");
+                            }else {
+                                alert('商品已成功加入购物车!');
+                            }
                         }
                 );
             }

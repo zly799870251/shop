@@ -32,12 +32,16 @@ public class ShoppingCartAction extends BaseAction {
     @RequestMapping("/addShoppingCart")
     @ResponseBody
     public String addShoppingCart(HttpServletRequest request, Long commodityId, int number) throws UnsupportedEncodingException {
-        OrderCommodity orderCommodity = new OrderCommodity();
-        orderCommodity.setNumber(number);
-        orderCommodity.setPrice(commodityService.findById(commodityId).getMallPrice() * number);
-        orderCommodity.setCommodityId(commodityId);
-        orderService.addOrderCommodity(orderCommodity,getCurrentUser(request).getId());
-        return "";
+        if(getCurrentUser(request) != null){
+            OrderCommodity orderCommodity = new OrderCommodity();
+            orderCommodity.setNumber(number);
+            orderCommodity.setPrice(commodityService.findById(commodityId).getMallPrice() * number);
+            orderCommodity.setCommodityId(commodityId);
+            orderService.addOrderCommodity(orderCommodity,getCurrentUser(request).getId());
+            return "";
+        }else {
+            return "error";
+        }
     }
 
     @RequestMapping("/deleteShopingCart")
