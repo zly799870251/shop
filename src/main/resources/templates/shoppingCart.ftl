@@ -63,11 +63,20 @@
             赠送积分: <em id="effectivePoint">${Request.order.price}</em>
             商品金额: <strong id="effectivePrice">￥${Request.order.price}元</strong>
         </div>
-        <div class="bottom">
-            <a href="${request.contextPath}/shoppingCart/clearShoppingCart.action?orderId=${Request.order.id}"
-               id="clear" class="clear">清空购物车</a>
-            <a href="userLogin.ftl" id="submit" class="submit">提交订单</a>
-        </div>
+        <form href="${request.contextPath}/order/submitOrder.action">
+            <div class="total">
+                <input type="hidden" name="orderId" value="${Request.order.id}"><br/>
+                收&nbsp;货&nbsp;人：<input type="text" name="consignee"><br/>
+                地&nbsp;&nbsp;&nbsp;&nbsp;址：<input type="text" name="address"><br/>
+                电话号码：<input type="text" name="phoneNumber"><br/>
+            </div>
+            <div class="bottom">
+                <a href="${request.contextPath}/shoppingCart/clearShoppingCart.action?orderId=${Request.order.id}"
+                   id="clear" class="clear">清空购物车</a>
+                <input type="submit" class="submit" value="提交订单" onclick="javascript:confirm('确认提交订单吗？')">
+            </div>
+        </form>
+
     </div>
 </div>
 
