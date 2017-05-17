@@ -1,6 +1,6 @@
 ﻿<html>
 <head>
-    <title>My商城</title>
+    <title>传智商城</title>
     <#include "public/classform.ftl">
     <link href="${request.contextPath}/templates/css/slider.css" rel="stylesheet" type="text/css"/>
     <link href="${request.contextPath}/templates/css/index.css" rel="stylesheet" type="text/css"/>

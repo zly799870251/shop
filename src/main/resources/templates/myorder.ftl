@@ -65,6 +65,9 @@
                 <em id="promotion"><a href="${request.contextPath}/order/doPayUI.action?orderId=${order.id}">去付款</a></em>
                 <#elseif order.state == "already">
                     <em id="promotions" style="color: greenyellow;">已支付,请耐心等待发货</em>
+
+                <#elseif order.state == "received">
+                    <em id="promotions" style="color: greenyellow;">卖家已发货,注意签收</em>
                     <em id="promotion">
                         <a href="${request.contextPath}/order/confirmReceipt.action?orderId=${order.id}">确认收货</a>
                     </em>
