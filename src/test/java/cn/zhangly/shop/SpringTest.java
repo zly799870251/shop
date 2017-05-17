@@ -32,13 +32,15 @@ public class SpringTest {
 
     @Resource
     private ProcessEngine processEngine;
+    @Resource
+    private OrderService orderService;
 
     // 部署流程定义
     @Test
     public void deploymentProcessDefinition() {
         Deployment order = processEngine.getRepositoryService().createDeployment()
                 .name("order")
-                .addClasspathResource("processfile/order.bpmn")
+                .addClasspathResource("processfile/orderv2.bpmn")
                 .deploy();
         System.out.println("Id=" + order.getId());
         System.out.println("Name=" + order.getName());
@@ -81,8 +83,15 @@ public class SpringTest {
     // 删除流程定义
     @Test
     public void deleteProcessDefinition(){
-        processEngine.getRepositoryService().deleteDeployment("1");
+        processEngine.getRepositoryService().deleteDeploymentCascade("47501");
         System.out.println("流程定义已删除！");
+    }
+
+    @Test
+    public void test3(){
+        orderService.findAllOrderByUser(1L).forEach(order -> {
+            System.out.println(order);
+        });
     }
 
 }

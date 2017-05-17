@@ -56,7 +56,6 @@ CREATE TABLE `order_commodity` (/* 订单项表 */
   `id`          BIGINT PRIMARY KEY AUTO_INCREMENT,
   `commodityId` BIGINT,
   `orderId`     BIGINT,
-  `userId`      BIGINT,
   `number`      INT,
   `price`       DOUBLE,
   CONSTRAINT `commodityId_fk` FOREIGN KEY (`commodityId`) REFERENCES `commodity` (`id`),

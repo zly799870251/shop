@@ -1,7 +1,6 @@
 package cn.zhangly.shop.base;
 
 import cn.zhangly.shop.mapper.*;
-import org.activiti.engine.*;
 
 import javax.annotation.Resource;
 
@@ -28,23 +27,5 @@ public class BaseDao {
     protected IntroducesMapper introducesMapper;
     @Resource
     protected CommtagMapper commtagMapper;
-
-    // activiti相关Service
-    @Resource
-    protected ProcessEngine processEngine;
-    @Resource
-    protected FormService formService;
-    @Resource
-    protected HistoryService historyService;
-    @Resource
-    protected IdentityService identityService;
-    @Resource
-    protected ManagementService managementService;
-    @Resource
-    protected RepositoryService repositoryService;
-    @Resource
-    protected RuntimeService runtimeService;
-    @Resource
-    protected TaskService taskService;
 
 }

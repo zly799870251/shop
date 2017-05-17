@@ -21,6 +21,8 @@ public interface OrderService {
 
     List<Order> findOrderByUser(Long userId);
 
+    List<Order> findAllOrderByUser(Long userId);
+
     Order assembleData(Order order);
 
     List<Order> assembleData(List<Order> orders);

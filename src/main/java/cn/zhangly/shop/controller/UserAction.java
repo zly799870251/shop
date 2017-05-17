@@ -27,10 +27,7 @@ public class UserAction extends BaseAction {
 
     @RequestMapping("/login")
     public String login(String username, String password, HttpServletRequest request) {
-        System.out.println("username=" + username);
-        System.out.println("password=" + password);
         User user = userService.login(username, password);
-        System.out.println(user);
         if (user != null) {
             request.getSession().setAttribute("user", user);
             request.setAttribute("message", "登录成功！");
@@ -73,8 +70,6 @@ public class UserAction extends BaseAction {
         String sessionCode = (String) request.getSession().getAttribute("checkcode");
         sessionCode = sessionCode.toUpperCase();
         checkcode = checkcode.toUpperCase();
-        System.out.println("sessionCode = " + sessionCode);
-        System.out.println("checkcode = " + checkcode);
         return sessionCode.equals(checkcode) ? "0" : "1";
     }
 

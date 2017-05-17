@@ -19,7 +19,6 @@
             </ul>
         </div>
 
-
         <table>
             <tbody>
             <tr>
@@ -30,53 +29,56 @@
                 <th>小计</th>
                 <th>操作</th>
             </tr>
-
-            <tr>
-                <td width="60">
-                    <input type="hidden" name="id" value="22"/>
-                    <img src=""/>
-                </td>
-                <td>
-                    <a target="_blank">
-                        <s:property value="product.pname"/>
-                    </a>
-                </td>
-                <td>
-                    100
-                </td>
-                <td class="quantity" width="60">
-                    <input type="text" name="count" value="1" maxlength="4" onpaste="return false;"/>
-                    <div>
-                        <span class="increase">&nbsp;</span>
-                        <span class="decrease">&nbsp;</span>
-                    </div>
-                </td>
-                <td width="140">
-                    <span class="subtotal">￥100</span>
-                </td>
-                <td>
-                    <a href="${request.contextPath}/templates/cart_removeCart.action?pid=1" class="delete">删除</a>
-                </td>
-            </tr>
-
+            <#if Request.order.orderItem??>
+                <#list Request.order.orderItem as oc>
+                <tr>
+                    <td width="60">
+                        <input type="hidden" name="id" value="${oc.id}">
+                        <#list oc.commodity.images as image>
+                            <#if image_index == 0>
+                                <img src="${request.contextPath}/templates/image/${image.path}">
+                            </#if>
+                        </#list>
+                    </td>
+                    <td>
+                        <a target="_blank">${oc.commodity.name}</a>
+                    </td>
+                    <td>
+                        ￥${oc.commodity.mallPrice}
+                    </td>
+                    <td class="quantity" width="60">
+                    ${oc.number}
+                    </td>
+                    <td width="140">
+                        <span class="subtotal">￥${oc.price}</span>
+                    </td>
+                    <td>
+                        <a href="${request.contextPath}/shoppingCart/deleteShopingCart.action?id=${oc.id}" class="delete">删除</a>
+                    </td>
+                </tr>
+                </#list>
+            </#if>
             </tbody>
         </table>
+
         <dl id="giftItems" class="hidden" style="display: none;">
         </dl>
         <div class="total">
             <em id="promotion"></em>
-            商品金额: <strong id="effectivePrice">￥100元</strong>
+            商品金额: <strong id="effectivePrice">￥${Request.order.price}元</strong>
         </div>
-        <form id="orderForm" action="${request.contextPath}/templates/order_payOrder.action" method="post">
-            <input type="hidden" name="order.oid" value=""/>
+        <form id="orderForm" action="${request.contextPath}/order/order_payOrder.action" method="post">
+            <input type="hidden" name="orderId" value="${Request.order.id}"/>
+            <#if Request.processInstanceId??>
+                <input type="hidden" name="processInstanceId" value="${Request.processInstanceId}"/>
+            </#if>
             <div class="span24">
                 <p>
-                    收货地址：<input name="order.user.addr" type="text" value="" style="width:350px"/>
+                    收货地址：<input name="address" type="text" value="${Request.order.user.address}" style="width:350px"/>
                     <br/>
-                    收货人&nbsp;&nbsp;&nbsp;：<input name="order.user.username" type="text" value="" style="width:150px"/>
+                    收货人&nbsp;&nbsp;&nbsp;：<input name="consignee" type="text" value="${Request.order.user.username}" style="width:150px"/>
                     <br/>
-                    联系方式：<input name="order.user.phone" type="text" value="" style="width:150px"/>
-
+                    联系方式：<input name="phoneNumber" type="text" value="${Request.order.user.phoneNumber}" style="width:150px"/>
                 </p>
                 <hr/>
                 <p>

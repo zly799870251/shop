@@ -16,6 +16,7 @@ import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by 青葉 on 2017/4/26.
@@ -62,8 +63,17 @@ public class OrderServiceImpl extends BaseDao implements OrderService {
         example.or(criteria);
         example.orderBy("id").desc();
         List<Order> orders = orderMapper.selectByExample(example);
-        System.out.println("orders=" + orders);
         return assembleData(orders);
+    }
+
+    @Override
+    public List<Order> findAllOrderByUser(Long userId){
+        Example example = new Example(Order.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("userId",userId);
+        criteria.andNotEqualTo("state", "unpaid");
+        example.or(criteria);
+        return assembleData(orderMapper.selectByExample(example));
     }
 
     @Override
@@ -92,6 +102,7 @@ public class OrderServiceImpl extends BaseDao implements OrderService {
             price += orderCommodity.getPrice();
         }
         order.setPrice(price);
+        order.setUser(userMapper.selectByPrimaryKey(order.getUserId()));
         return order;
     }
 
@@ -122,6 +133,7 @@ public class OrderServiceImpl extends BaseDao implements OrderService {
                     price += orderCommodity.getPrice();
                 }
                 order.setPrice(price);
+                order.setUser(userMapper.selectByPrimaryKey(order.getUserId()));
                 orderList.add(order);
             }
         }
@@ -130,11 +142,39 @@ public class OrderServiceImpl extends BaseDao implements OrderService {
 
     @Override
     public void addOrderCommodity(OrderCommodity orderCommodity, Long userId) {
-        List<Order> orderByUser = findOrderByUser(userId);
-        if (orderByUser != null && orderByUser.size() > 0) {
-            Order order = orderByUser.get(0);
-            orderCommodity.setOrderId(order.getId());
+        Example example = new Example(Order.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("userId",userId);
+        criteria.andEqualTo("state","unpaid");
+        example.or(criteria);
+        example.orderBy("createTime").desc();
+        List<Order> orderList = orderMapper.selectByExample(example);
+        if (orderList != null && orderList.size() > 0){
+            Order order = orderList.get(0);
+            Set<OrderCommodity> orderItem = order.getOrderItem();
+            if (orderItem == null) orderItem = new HashSet<OrderCommodity>();
+            orderItem.add(orderCommodity);
+            order.setOrderItem(orderItem);
+            order.setPrice(order.getPrice() + orderCommodity.getPrice());
+            orderMapper.updateByPrimaryKey(order);
+        }else {
+
         }
+        Order order = null;
+        if (orderList != null && orderList.size() > 0){
+            order = orderList.get(0);
+        }else {
+            Order order1 = new Order();
+            order1.setUserId(userId);
+            HashSet<OrderCommodity> orderItem = new HashSet<>();
+            orderItem.add(orderCommodity);
+            order1.setOrderItem(orderItem);
+            order1.setPrice(orderCommodity.getPrice());
+            order1.setState("unpaid");
+            orderMapper.insert(order1);
+            order = orderMapper.selectByPrimaryKey(order1.getId());
+        }
+        orderCommodity.setOrderId(order.getId());
         orderCommodityMapper.insert(orderCommodity);
     }
 

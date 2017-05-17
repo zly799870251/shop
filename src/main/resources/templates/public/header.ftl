@@ -19,6 +19,9 @@
                 <li id="headerUsername">
                     欢迎，尊敬的会员 ${Session.user.name}
                 </li>
+                <li id="headerUsername">
+                    <a href="${request.contextPath}/order/findMyOrder.action">[我的订单]</a>|
+                </li>
                 <li id="headerLogout">
                     <a href="${request.contextPath}/user/loginOut.action?id=${Session.user.id}">[退出]</a>|
                 </li>
@@ -32,10 +35,6 @@
             </#if>
                 <li>
                     <a href="#">会员中心</a>
-                    |
-                </li>
-                <li>
-                    <a href="#">购物指南</a>
                     |
                 </li>
                 <li>

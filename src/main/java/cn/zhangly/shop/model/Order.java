@@ -1,6 +1,7 @@
 package cn.zhangly.shop.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Set;
@@ -24,6 +25,8 @@ public class Order extends BaseEntity {
 
     @Transient
     private Set<OrderCommodity> orderItem;
+    @Transient
+    private User user;
 
     @Override
     public String toString() {
@@ -36,6 +39,7 @@ public class Order extends BaseEntity {
                 ", consignee='" + consignee + '\'' +
                 ", userId=" + userId +
                 ", orderItem=" + orderItem +
+                ", user=" + user +
                 '}';
     }
 
@@ -101,5 +105,13 @@ public class Order extends BaseEntity {
 
     public void setOrderItem(Set<OrderCommodity> orderItem) {
         this.orderItem = orderItem;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
